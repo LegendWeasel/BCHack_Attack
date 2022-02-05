@@ -19,9 +19,9 @@ public class Main extends AbstractGame
 	
 	//Required Basic Game Visual data used in main below
 	private static String gameName = "Raccoon Game";
-	private static int windowWidth = 800;	//For fullscreen mode set these next two to screenWidth and screenHeight
-	private static int windowHeight = 600;
-	private static int fps = 60;
+	private static int windowWidth = 1280;	//For fullscreen mode set these next two to screenWidth and screenHeight
+	private static int windowHeight = 720;
+	private static int fps = 30;
 	
 	
 	public static void main(String[] args) 
@@ -48,9 +48,7 @@ public class Main extends AbstractGame
 	@Override
 	public void Draw(GameContainer gc, Graphics2D gfx) 
 	{
-		//TODO: Add your draw logic here
-		//The only other logic here should be selection logic (everything else should be in Update)
-
+	
 	}
 
 }
