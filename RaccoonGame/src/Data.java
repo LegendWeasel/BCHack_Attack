@@ -121,17 +121,15 @@ public class Data {
     public static int BOSS = 1;
 
     //Stores the enemy types as ints
-    public static int DOTFLY = 0;
-    public static int DUNGDROP = 1;
-    public static int TUMORMAN = 2;
-    public static int BUTTBLOB = 3;
+    public static int MOLE = 0;
+    public static int BEE = 1;
 
     //Stores the amount of enemy types
     public static int enemyTypeAmount = 4;
 
     //Stores the boss types as ints
-    public static int LORDFLY = 0;
-    public static int LORDDUNG = 1;
+    public static int DOG = 0;
+    public static int CHEF = 1;
 
     //Stores the amount of boss types
     public static int bossTypeAmount = 2;
