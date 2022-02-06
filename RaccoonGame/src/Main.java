@@ -21,8 +21,9 @@ public class Main extends AbstractGame
 	private static String gameName = "Raccoon Game";
 	private static int windowWidth = 1280;	//For fullscreen mode set these next two to screenWidth and screenHeight
 	private static int windowHeight = 720;
-	private static int fps = 30;
+	private static int fps = 60;
 	
+	private static Controls controls;
 	
 	public static void main(String[] args) 
 	{
