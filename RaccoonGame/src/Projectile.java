@@ -129,14 +129,14 @@ public class Projectile extends Interactable{
         }
 
         //Calls UpdatePosition
-        UpdatePosition();
+        updatePosition();
     }
 
     /// <summary>
     /// Updates the position of the projectile
     /// </summary>
     @Override
-    public void UpdatePosition()
+    public void updatePosition()
     {
         //Updates the distance traveled
         distTraveled += currentVelocity.Length() * Data.deltaTime;
@@ -148,7 +148,7 @@ public class Projectile extends Interactable{
             isAlive = false;
         }
 
-        base.UpdatePosition();
+        super.updatePosition();
     }
 
     /// <summary>
@@ -161,14 +161,14 @@ public class Projectile extends Interactable{
         if(target != null)
         {
             //Sets the acceleration towards the target
-            accel.X = target.GetDestRec().Center.X - destRec.Center.X;
-            accel.Y = target.GetDestRec().Center.Y - destRec.Center.Y;
+            accel.x = target.getDestRec().Center.X - destRec.Center.X;
+            accel.y = target.getDestRec().Center.Y - destRec.Center.Y;
 
             //Changes the accceleration values to a direction vector
             if (accel.X != 0 && accel.Y != 0)
             {
                 //Normalizes the vector
-                accel.Normalize();
+                accel.normalize();
 
                 //Scales the direction by the acceleration value
                 accel *= maxAccel;

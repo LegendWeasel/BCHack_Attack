@@ -120,7 +120,7 @@ public class FloorMap {
 
         //Sets the starting room as a random room
         int startRoom = Data.getRandomNumber(0, room.size());
-        room.set(startRoom, new StartRoom(startRoom));
+        room.set(startRoom, new StartRoom(data,startRoom));
 
         //Sets the player and maps current room as the starter room
         currentRoom = startRoom;
@@ -147,7 +147,7 @@ public class FloorMap {
         {
             //Sets the boss room at a dead end
             specialRoomID = deadEnds.pop();
-            room.set(specialRoomID, new BossRoom(specialRoomID));
+            room.set(specialRoomID, new BossRoom(data,specialRoomID));
         }
 
         //Adds the treausure room if there is a dead end node
@@ -155,7 +155,7 @@ public class FloorMap {
         {
             //Sets the treausure room at a dead end
             specialRoomID = deadEnds.pop();
-            room.set(specialRoomID, new TreasureRoom(specialRoomID));
+            room.set(specialRoomID, new TreasureRoom(data,specialRoomID));
         }
 
         //Adds the shop room if there is a dead end node
@@ -163,7 +163,7 @@ public class FloorMap {
         {
             //Sets the shop room at a dead end
             specialRoomID = deadEnds.pop();
-            room.set(specialRoomID, new ShopRoom(specialRoomID));
+            room.set(specialRoomID, new ShopRoom(data,specialRoomID));
         }
 
         //Loops through all nodes and adds in a coresponding door
@@ -182,7 +182,7 @@ public class FloorMap {
                 if(room.get(i).GetDoors().get(j).GetAdjRoom().GetShouldLock())
                 {
                     //Lock the door to the room
-                    room.get(i).GetDoors().get[j].LockDoor();
+                    room.get(i).GetDoors().get(j).LockDoor();
                 }
             }
         }
@@ -259,22 +259,22 @@ public class FloorMap {
         if (!grid.get(roomID).GetHasWall()[Data.UP])
         {
             //Adds a door to the top of the room
-            room.get(roomID).AddDoors(player, room.get(roomID - Data.mapNodeSize), room.toArray(), Data.UP, false);
+            room.get(roomID).AddDoors(player, room.get(roomID - Data.mapNodeSize), room.toArray(new Room[room.size()]), Data.UP, false);
         }
         if (!grid.get(roomID).GetHasWall()[Data.RIGHT])
         {
             //Adds a door to the right of the room
-            room.get(roomID).AddDoors(player, room.get(roomID + 1), room.toArray(), Data.RIGHT, false);
+            room.get(roomID).AddDoors(player, room.get(roomID + 1), room.toArray(new Room[room.size()]), Data.RIGHT, false);
         }
         if (!grid.get(roomID).GetHasWall()[Data.DOWN])
         {
             //Adds a locked door to the bottom of the room
-            room.get(roomID).AddDoors(player, room.get(roomID + Data.mapNodeSize), room.toArray(),Data.DOWN, false);
+            room.get(roomID).AddDoors(player, room.get(roomID + Data.mapNodeSize), room.toArray(new Room[room.size()]),Data.DOWN, false);
         }
         if (!grid.get(roomID).GetHasWall()[Data.LEFT])
         {
             //Adds a door to the left of the room
-            room.get(roomID).AddDoors(player, room.get(roomID - 1), room.toArray(), Data.LEFT, false);
+            room.get(roomID).AddDoors(player, room.get(roomID - 1), room.toArray(new Room[room.size()]), Data.LEFT, false);
         }
     }
 
