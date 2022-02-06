@@ -243,7 +243,7 @@ public class FloorMap {
             }
         } while (tileStack.size() != 0);
     }
-    
+
         /// <summary>
         /// Adds all doors to a room
         /// </summary>
@@ -255,22 +255,22 @@ public class FloorMap {
             if (!grid.get(roomID).GetHasWall()[Data.UP])
             {
                 //Adds a door to the top of the room
-                room.get(roomID).AddDoors(player, room[roomID - Data.mapNodeSize], room.ToArray(), Data.UP, false);
+                room.get(roomID).AddDoors(player, room.get(roomID - Data.mapNodeSize), room.toArray(), Data.UP, false);
             }
             if (!grid.get(roomID).GetHasWall()[Data.RIGHT])
             {
                 //Adds a door to the right of the room
-                room.get(roomID).AddDoors(player, room[roomID + 1], room.ToArray(), Data.RIGHT, false);
+                room.get(roomID).AddDoors(player, room.get(roomID + 1), room.toArray(), Data.RIGHT, false);
             }
             if (!grid.get(roomID).GetHasWall()[Data.DOWN])
             {
                 //Adds a locked door to the bottom of the room
-                room.get(roomID).AddDoors(player, room[roomID + Data.mapNodeSize], room.ToArray(),Data.DOWN, false);
+                room.get(roomID).AddDoors(player, room.get(roomID + Data.mapNodeSize), room.toArray(),Data.DOWN, false);
             }
             if (!grid.get(roomID).GetHasWall()[Data.LEFT])
             {
                 //Adds a door to the left of the room
-                room.get(roomID).AddDoors(player, room[roomID - 1], room.ToArray(), Data.LEFT, false);
+                room.get(roomID).AddDoors(player, room.get(roomID - 1), room.toArray(), Data.LEFT, false);
             }
         }
 }
