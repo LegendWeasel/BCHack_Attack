@@ -31,6 +31,8 @@ public class FloorMap {
 
     public FloorMap(Data data)
         {
+            this.data = data;
+
             //Sets the wall width and room boundries
             wallHeight = 130;
             wallWidth = 150;
@@ -106,30 +108,30 @@ public class FloorMap {
         room.clear();
 
         //Loops through all nodes and sets it as a monster room except the starter room
-        for (int i = 0; i < grid.Count; i++)
+        for (int i = 0; i < grid.size(); i++)
         {
             //Adds a new room
             room.add(new MonsterRoom(data, i));
         }
 
         //Sets the starting room as a random room
-        int startRoom = Data.rng.Next(room.Count);
-        room[startRoom] = new StartRoom(startRoom);
+        int startRoom = Data.getRandomNumber(0, room.size());
+        room.set(startRoom, new StartRoom(startRoom));
 
         //Sets the player and maps current room as the starter room
         currentRoom = startRoom;
-        player.SetCurrentRoom(room[startRoom]);
+        player.SetCurrentRoom(room.get(startRoom));
 
         //Tracks the IDs of dead end rooms
-        Stack<int> deadEnds = new Stack<int>();
+        Stack<Integer> deadEnds = new Stack<Integer>();
 
         //Loops through all rooms and tracks which rooms are dead ends
-        for (int i = 0; i < room.Count; i++)
+        for (int i = 0; i < room.size(); i++)
         {
             //Checks if the room is a dead end and is not the starting room
-            if(grid[i].GetIsDeadEnd() && i != startRoom)
+            if(grid.get(i).GetIsDeadEnd() && i != startRoom)
             {
-                deadEnds.Push(room[i].GetRoomID());
+                deadEnds.push(room.get(i).GetRoomID());
             }
         }
 
@@ -137,58 +139,138 @@ public class FloorMap {
         int specialRoomID;
 
         //Adds the boss room if there is a dead end node
-        if (deadEnds.Count > 0)
+        if (deadEnds.size() > 0)
         {
             //Sets the boss room at a dead end
-            specialRoomID = deadEnds.Pop();
-            room[specialRoomID] = new BossRoom(specialRoomID);
+            specialRoomID = deadEnds.pop();
+            room.set(specialRoomID, new BossRoom(specialRoomID));
         }
 
         //Adds the treausure room if there is a dead end node
-        if (deadEnds.Count > 0)
+        if (deadEnds.size() > 0)
         {
             //Sets the treausure room at a dead end
-            specialRoomID = deadEnds.Pop();
-            room[specialRoomID] = new TreasureRoom(specialRoomID);
+            specialRoomID = deadEnds.pop();
+            room.set(specialRoomID, new TreasureRoom(specialRoomID));
         }
 
         //Adds the shop room if there is a dead end node
-        if (deadEnds.Count > 0)
+        if (deadEnds.size() > 0)
         {
             //Sets the shop room at a dead end
-            specialRoomID = deadEnds.Pop();
-            room[specialRoomID] = new ShopRoom(specialRoomID);
+            specialRoomID = deadEnds.pop();
+            room.set(specialRoomID, new ShopRoom(specialRoomID));
         }
 
         //Loops through all nodes and adds in a coresponding door
-        for (int i = 0; i < grid.Count; i++)
+        for (int i = 0; i < grid.size(); i++)
         {
             //Adds the doors
             AddDoors(i, player);
         }
 
         //Loops through all nodes and locks certain doors
-        for (int i = 0; i < grid.Count; i++)
+        for (int i = 0; i < grid.size(); i++)
         {
             //Loops through all the doors in the room
-            for(int j = 0; j < room[i].GetDoors().Count; j++)
+            for(int j = 0; j < room.get(i).GetDoors().size; j++)
             {
-                if(room[i].GetDoors()[j].GetAdjRoom().GetShouldLock())
+                if(room.get(i).GetDoors().get(j).GetAdjRoom().GetShouldLock())
                 {
                     //Lock the door to the room
-                    room[i].GetDoors()[j].LockDoor();
+                    room.get(i).GetDoors().get[j].LockDoor();
                 }
             }
         }
 
             //Loops through all nodes and populates it
-            for (int i = 0; i < grid.Count; i++)
+            for (int i = 0; i < grid.size(); i++)
         {
             //Populates the current room
-            room[i].Populate(player);
+            room.get(i).Populate(player);
         }
 
         //Once the map is generated, enter the game
         Data.currentScreen = Data.GAMESCREEN;
     }
+
+    /// <summary>
+    /// Generates the nodes of the maze
+    /// </summary>
+    public void GenerateNodemap()
+    {
+        //Resets the entire grid to be regenerated
+        for (int i = 0; i < grid.size(); i++)
+        {
+            //Resets the current grid stats
+            grid.get(i).SetBaseStats();
+        }
+
+        //Clears the node stack
+        tileStack.clear();
+
+        //Sets the current node as a random node
+        currentTile = grid.get( Data.getRandomNumber(0, grid.size()));
+
+        //Loops until the map is done. The tile stack is empty
+        do
+        {
+            //Sets the current tile as visited
+            currentTile.SetVisited(true);
+
+            //Sets the next tile as a random neighboring tile
+            nextTile = currentTile.CheckNeighbors(grid);
+
+            //Checks if a next tile exists
+            if (nextTile != null)
+            {
+                //Set the next node as visited
+                nextTile.SetVisited(true);
+
+                //Adds the current tile to the stack
+                tileStack.push(currentTile);
+
+                //Remove walls between the current and next node
+                RemoveWalls(currentTile, nextTile);
+
+                //Set the current tile as the next tile
+                currentTile = nextTile;
+            }
+            else if (tileStack.size() > 0)
+            {
+                //Sets the current tile as the previous one from the stack
+                currentTile = (RoomNode)tileStack.pop();
+            }
+        } while (tileStack.size() != 0);
+    }
+    
+        /// <summary>
+        /// Adds all doors to a room
+        /// </summary>
+        /// <param name="roomID"></param>
+        /// <param name="player"></param>
+        public void AddDoors(int roomID , Player player)
+        {
+            //Adds a door if there are no walls on that side of the room
+            if (!grid.get(roomID).GetHasWall()[Data.UP])
+            {
+                //Adds a door to the top of the room
+                room.get(roomID).AddDoors(player, room[roomID - Data.mapNodeSize], room.ToArray(), Data.UP, false);
+            }
+            if (!grid.get(roomID).GetHasWall()[Data.RIGHT])
+            {
+                //Adds a door to the right of the room
+                room.get(roomID).AddDoors(player, room[roomID + 1], room.ToArray(), Data.RIGHT, false);
+            }
+            if (!grid.get(roomID).GetHasWall()[Data.DOWN])
+            {
+                //Adds a locked door to the bottom of the room
+                room.get(roomID).AddDoors(player, room[roomID + Data.mapNodeSize], room.ToArray(),Data.DOWN, false);
+            }
+            if (!grid.get(roomID).GetHasWall()[Data.LEFT])
+            {
+                //Adds a door to the left of the room
+                room.get(roomID).AddDoors(player, room[roomID - 1], room.ToArray(), Data.LEFT, false);
+            }
+        }
 }
