@@ -1,6 +1,8 @@
 public class Vector2 {
-    private double x;
-    private double y;
+    public double x;
+    public double y;
+
+    Vector2() {}
 
     Vector2(double x, double y) {
         this.x = x;
