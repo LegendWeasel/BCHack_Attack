@@ -10,7 +10,7 @@ import java.awt.Point;
 public abstract class Interactable {
 	//attributes
 	//Tracks the location of the object on the map
-    protected Maps.Room currentRoom;
+    protected Room currentRoom;
 	
 	protected Rectangle destRec;
 	
@@ -22,7 +22,7 @@ public abstract class Interactable {
 	
 	protected Vector2 maxVelocity;
 	
-	protected Point moveDir;
+	protected Vector2 moveDir;
 	
 	protected Point currentPos;
 	
@@ -44,7 +44,7 @@ public abstract class Interactable {
 	
 	
 	//constructor
-	public Interactable(Maps.Room currentRoom, SpriteSheet sprite, Animation spriteAnim)
+	public Interactable(Room currentRoom, SpriteSheet sprite, Animation spriteAnim)
     {
         this.currentRoom = currentRoom;
 
@@ -60,7 +60,7 @@ public abstract class Interactable {
         maxVelocity = new Vector2(100, 100);
 
         //Sets the move directions based on current velocity
-        moveDir = new Point(Math.signum(currentVelocity.getX()), Math.signum(currentVelocity.getY()));
+        moveDir = new Vector2(Math.signum(currentVelocity.getX()), Math.signum(currentVelocity.getY()));
 
         //Set the array of touching wall booleans
         touchingWall = new boolean[4];
@@ -74,7 +74,7 @@ public abstract class Interactable {
         this.spriteAnim = spriteAnim;
 
         //Sets the dest rec of the entity based on sprite size
-        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.Width << 1, sprite.Height << 1);
+        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
     }
 	
 	
@@ -151,12 +151,12 @@ public abstract class Interactable {
 	}
 
 
-	public Maps.Room getCurrentRoom() {
+	public Room getCurrentRoom() {
 		return currentRoom;
 	}
 
 
-	public void setCurrentRoom(Maps.Room currentRoom) {
+	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
 	}
 
