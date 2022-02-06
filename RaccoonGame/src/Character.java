@@ -1,5 +1,6 @@
 
 
+
 public class Character extends Interactable {
 	//attributes
 	int health;
