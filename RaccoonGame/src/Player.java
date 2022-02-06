@@ -1,6 +1,12 @@
+<<<<<<< HEAD
+import com.engine.core.gfx.*;
+import java.awt.Point;
+import java.awt.Rectangle;
+=======
 import java.awt.Point;
 
 import com.engine.core.gfx.SpriteSheet;
+>>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
 
 public class Player extends Character{
     //Tracks which direction the projectile will be traveling
@@ -73,13 +79,12 @@ public class Player extends Character{
 
         updateFireingTimer();
 
-        base.Update();
+        super.Update();
     }
 
     /// <summary>
     /// Allows the player to fire projectiles
     /// </summary>
-    @Override
     public void Attack(float projAngle)
     {
         currentRoom.AddProj(new Projectile(this, GenProjVel(projAngle), null));
@@ -115,7 +120,7 @@ public class Player extends Character{
         Vector2 projDir = new Vector2();
 
         //Applies inaccuracy based on player stats
-        projAngle += Data.getRandomNumber(-projStats.get(Data.ACCURACY), projStats.get(Data.ACCURACY));
+        projAngle += Data.getRandomNumber(-(int)projStats[Data.ACCURACY], (int)projStats[Data.ACCURACY]);
 
         //Converts angles from degrees to radians
         projAngle *= Data.degToRad;
@@ -124,8 +129,11 @@ public class Player extends Character{
         projDir.x = (float)(Math.cos(projAngle));
         projDir.y = (float)(Math.sin(projAngle));
 
-        projDir *= projStats[Data.SPEED];
-        projDir += currentVelocity * 0.5f;
+        projDir.x *= projStats[Data.SPEED];
+        projDir.y *= projStats[Data.SPEED];
+
+        projDir.x += currentVelocity.x * 0.5f;
+        projDir.y += currentVelocity.y * 0.5f;
 
         //Returns the firing direction
         return projDir;
@@ -215,15 +223,15 @@ public class Player extends Character{
         //Sets the player resources
         coinAmount = 0;
         keyAmount = 0;
+<<<<<<< HEAD
+        //inventory.Empty();
+=======
 //        inventory.Empty();
+>>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
 
         //Sets player player state
         inAir = false;
         isAlive = true;
-
-        //Sets player jumping data
-        jumpTimer = 0;
-        maxJumpTime = 0.5f;
 
         //Sets the player invincability timer
         maxInvulnTime = 1;
@@ -237,8 +245,13 @@ public class Player extends Character{
 
         //Sets the characters positional stats
         maxVelocity = new Vector2(250, 250);
+<<<<<<< HEAD
+        currentPos = new Point((int)Data.roomBoundary.getCenterX(), (int)Data.roomBoundary.getCenterY());
+        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
+=======
         currentPos = new Vector2(Data.roomBoundary.Center.X, Data.roomBoundary.Center.Y);
         hitBox = new Rectangle((int)currentPos.X, (int)currentPos.Y, sprite.Width << 1, sprite.Height << 1);
+>>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
 
         //Sets starting motion values to zero
         StopMotion();

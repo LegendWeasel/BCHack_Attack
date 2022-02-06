@@ -1,8 +1,8 @@
 public class StartRoom extends Room
 {
-        public StartRoom(int roomID)
+        public StartRoom(Data data, int roomID)
         {
-            super(roomID);
+            super(data, roomID);
         }
 
         /// <summary>
@@ -12,6 +12,6 @@ public class StartRoom extends Room
         @Override
         public void Populate(Player player)
         {
-            base.Populate(player);
+            super.Populate(player);
         }
 }
