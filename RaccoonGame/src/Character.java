@@ -349,4 +349,5 @@ public abstract class Character extends Interactable {
         //Set alive to false
         isAlive = false;
     }
+
 }
