@@ -35,7 +35,7 @@ public class Door {
     //Tracks the world map
     private Room[] map;
 
-    public Door(Player player,Room adjRoom, Room[] map,int wallSide, bool isLocked)
+    public Door(Player player,Room adjRoom, Room[] map,int wallSide, boolean isLocked)
     {
         this.player = player;
 
@@ -49,20 +49,12 @@ public class Door {
         this.isLocked = isLocked;
 
         //Sets the sprite depending on locked state
-        switch(isLocked)
-        {
-            case true:
-                {
-                    //The door is lock
-                    sprite = Sprites.lockedDoorSprite[wallSide];
-                    break;
-                }
-            case false:
-                {
-                    //The door is not lock
-                    sprite = Sprites.closedDoorSprite[wallSide];
-                    break;
-                }
+        if(isLocked) {
+            //The door is lock
+            //sprite = Sprites.lockedDoorSprite[wallSide];
+        } else {
+            //The door is not lock
+            //sprite = Sprites.closedDoorSprite[wallSide];
         }
             
 
@@ -142,13 +134,13 @@ public class Door {
         isLocked = true;
 
         //Sets the sprite to the locked sprite
-        sprite = Sprites.lockedDoorSprite[wallSide];
+        //sprite = Sprites.lockedDoorSprite[wallSide];
     }
 
     /// <summary>
     /// Updates the door
     /// </summary>
-    public void Update(bool isClear, Room[] map)
+    public void Update(boolean isClear, Room[] map)
     {
         //Checks for charcter collision
         CheckCollision(isClear);
@@ -216,7 +208,7 @@ public class Door {
                 {
                     //The next door is on the bottom
                     player.setCurrentPos(new Point(position[Data.DOWN].x,
-                                                    position[Data.DOWN].y - player.getHitBox().Height - 1));
+                                                    position[Data.DOWN].y - player.getHitBox().height - 1));
                     break;
                 }
             case Data.RIGHT:
@@ -229,14 +221,14 @@ public class Door {
             case Data.DOWN:
                 {
                     //The next door is on the top
-                    player.setCurrentPos(new Vector2(position[Data.UP].x,
+                    player.setCurrentPos(new Point(position[Data.UP].x,
                                                         position[Data.UP].y + doorDepth + 1));
                     break;
                 }
             case Data.LEFT:
                 {
                     //The next door is on the right
-                    player.setCurrentPos(new Vector2(position[Data.RIGHT].x - player.getHitBox().Width -1,
+                    player.setCurrentPos(new Point(position[Data.RIGHT].x - player.getHitBox().width -1,
                                                         position[Data.RIGHT].y));
                     break;
                 }
@@ -269,19 +261,19 @@ public class Door {
             case Data.RIGHT:
                 {
                     //The door is on the right of the room
-                    destRec = new Rectangle(position[Data.RIGHT].X, position[Data.RIGHT].Y, doorDepth, doorWidth);
+                    destRec = new Rectangle(position[Data.RIGHT].x, position[Data.RIGHT].y, doorDepth, doorWidth);
                     break;
                 }
             case Data.DOWN:
                 {
                     //The door is on the bottom of the room
-                    destRec = new Rectangle(position[Data.DOWN].X, position[Data.DOWN].Y, doorWidth, doorDepth);
+                    destRec = new Rectangle(position[Data.DOWN].x, position[Data.DOWN].y, doorWidth, doorDepth);
                     break;
                 }
             case Data.LEFT:
                 {
                     //The door is on the left of the room
-                    destRec = new Rectangle(position[Data.LEFT].X, position[Data.LEFT].Y, doorDepth, doorWidth);
+                    destRec = new Rectangle(position[Data.LEFT].x, position[Data.LEFT].y, doorDepth, doorWidth);
                     break;
                 }
         }
