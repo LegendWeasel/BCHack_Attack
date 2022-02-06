@@ -1,7 +1,8 @@
-package World;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class RoomNode {
 	
@@ -27,10 +28,15 @@ public class RoomNode {
 
     //Tracks if the room is a special room
     private boolean isDeadEnd;
+
+    private Data data;
+    Vector2 point;
     
     //Constructor
-    public RoomNode(int row, int col, int gridSize)
+    public RoomNode(Data data, int row, int col, int gridSize)
     {
+        this.data = data;
+
         //Sets the current row and sile
         this.row = row;
         this.col = col;
@@ -119,6 +125,37 @@ public class RoomNode {
         doors |= doorSide;
     }
     
+    /// <summary>
+        /// Adds all neighboring nodes
+        /// </summary>
+        /// <param name="grid"></param>
+        public void FindNeighbors(List<RoomNode> grid)
+        {
+            //Adds a neighbor if it exists
+            if (Data.CalcIndex(col, row - 1, gridSize, gridSize) != -1)
+            {
+                //A neighbor is above 
+                neighbor.add(grid.get(Data.CalcIndex(col, row - 1, gridSize, gridSize)));
+            }
+
+            if (Data.CalcIndex(col + 1, row, gridSize, gridSize) != -1)
+            {
+                //A neighbor is below 
+                neighbor.add(grid.get(Data.CalcIndex(col + 1, row, gridSize, gridSize)));
+            }
+
+            if (Data.CalcIndex(col, row + 1, gridSize, gridSize) != -1)
+            {
+                //A neighbor is to the right 
+                neighbor.add(grid.get(Data.CalcIndex(col, row + 1, gridSize, gridSize)));
+            }
+
+            if (Data.CalcIndex(col - 1, row, gridSize, gridSize) != -1)
+            {
+                //A neighbor is to the left 
+                neighbor.add(grid.get(Data.CalcIndex(col-1, row, gridSize, gridSize)));
+            }
+        }
 
     /// <summary>
     /// Checks which neighbors are visted and adds them to the list
@@ -146,7 +183,7 @@ public class RoomNode {
         {
             //Returns a random available neighbor
             //return openNeighbor[Data.rng.Next(0, openNeighbor.Count)];
-            return openNeighbor.get(getRandomNumber(0,openNeighbor.size()));
+            return openNeighbor.get(Data.getRandomNumber(0,openNeighbor.size()));
         }
 
         //There are no more neighbors
@@ -188,17 +225,5 @@ public class RoomNode {
         //Sets the room to have no doors
         doors = 0;
     }
-    
-    
-    //Pre: A maximum and minimum integer value
-    //Post: A integer within the given limit
-    //Description: Generates a number between the given range inclusive
-    public static int getRandomNumber(int minValue, int maxValue)
-    {
-        //Generates then returns the number
-        int number = (int)((Math.random() * (maxValue - minValue + 1)) + minValue);
-        return number;
-    }
-    
     
 }
