@@ -9,10 +9,10 @@ public class Data {
     public static int numberOfDir = 4;
 
     //Tracks the cardinal directions with bytes
-    public final byte NORTH = 8;
-    public final byte EAST = 4;
-    public final byte SOUTH = 2;
-    public final byte WEST = 1;
+    public static byte NORTH = 8;
+    public static byte EAST = 4;
+    public static byte SOUTH = 2;
+    public static byte WEST = 1;
 
     //Tracks the current screen
     public static int currentScreen = 0;
@@ -22,42 +22,42 @@ public class Data {
 
     //Sets the types of screens as ints
     //Sets the start screen
-    public final int STARTSCREEN = 0;
+    public static int STARTSCREEN = 0;
 
     //Sets the game screen
-    public final int GAMESCREEN = 1;
+    public static int GAMESCREEN = 1;
 
     //Sets the menu screens
-    public final int MENUSCREEN = 2;
+    public static int MENUSCREEN = 2;
 
     //Sets the sub screen ID
-    public final int NEWRUN = 0;
-    public final int OPTIONS = 1;
-    public final int EXIT = 2;
+    public static int NEWRUN = 0;
+    public static int OPTIONS = 1;
+    public static int EXIT = 2;
 
     //Tracks the amount of subscreens for the menu
-    public final int SUBSCREENNUMMENU = 3;
+    public static int SUBSCREENNUMMENU = 3;
 
     //Sets the options screens
-    public final int OPTIONSCREEN = 3;
+    public static int OPTIONSCREEN = 3;
 
     //Sets the sub screen ID
-    public final int SCREENTIMER = 0;
-    public final int NOSCREENTIMER = 1;
+    public static int SCREENTIMER = 0;
+    public static int NOSCREENTIMER = 1;
 
     //Sets the difficulty selection screen
-    public final int DIFFSCREEN = 4;
+    public static int DIFFSCREEN = 4;
 
     //Sets the sub screen ID
-    public final int EASY = 0;
-    public final int MEDIUM = 1;
-    public final int HARD = 2;
+    public static int EASY = 0;
+    public static int MEDIUM = 1;
+    public static int HARD = 2;
 
     //Tracks the amount of subscreens for the difficulty selection
-    public final int SUBSCREENNUMDIFF = 3;
+    public static int SUBSCREENNUMDIFF = 3;
 
     //Sets the loading screen
-    public final int LOADINGSCREEN = 5;
+    public static int LOADINGSCREEN = 5;
 
     //Tracks the game window dimentions
     public static int screenWidth = 0;
@@ -91,10 +91,10 @@ public class Data {
     public static Rectangle screenRectangle;
 
     //Directions represented by ints
-    public final int UP = 0;
-    public final int RIGHT = 1;
-    public final int DOWN = 2;
-    public final int LEFT = 3;
+    public static int UP = 0;
+    public static int RIGHT = 1;
+    public static int DOWN = 2;
+    public static int LEFT = 3;
 
     //Direction angles represented by degrees
     public static float UPANGLE = 270f;
@@ -104,83 +104,87 @@ public class Data {
     public static float[] faceDir;
 
     //Stores the projectile stat types as ints
-    public final int SPEED = 0;
-    public final int DMG = 1;
-    public final int FIRERATE = 2;
-    public final int RANGE = 3;
-    public final int AMOUNT = 4;
-    public final int ACCURACY = 5;
-    public final int SIZE = 6;
+    public static int SPEED = 0;
+    public static int DMG = 1;
+    public static int FIRERATE = 2;
+    public static int RANGE = 3;
+    public static int AMOUNT = 4;
+    public static int ACCURACY = 5;
+    public static int SIZE = 6;
 
     //Stores the amount of projectile statistics
+<<<<<<< HEAD
     public final static int statAmount = 7;
+=======
+    public static int statAmount = 7;
+>>>>>>> f7f0e264fe21607f469624c2f61fb369432a243f
 
     //Stores charcter types as ints
-    public final int MONSTER = 0;
-    public final int BOSS = 1;
+    public static int MONSTER = 0;
+    public static int BOSS = 1;
 
     //Stores the enemy types as ints
-    public final int DOTFLY = 0;
-    public final int DUNGDROP = 1;
-    public final int TUMORMAN = 2;
-    public final int BUTTBLOB = 3;
+    public static int DOTFLY = 0;
+    public static int DUNGDROP = 1;
+    public static int TUMORMAN = 2;
+    public static int BUTTBLOB = 3;
 
     //Stores the amount of enemy types
-    public final int enemyTypeAmount = 4;
+    public static int enemyTypeAmount = 4;
 
     //Stores the boss types as ints
-    public final int LORDFLY = 0;
-    public final int LORDDUNG = 1;
+    public static int LORDFLY = 0;
+    public static int LORDDUNG = 1;
 
     //Stores the amount of boss types
-    public final int bossTypeAmount = 2;
+    public static int bossTypeAmount = 2;
 
     //Stores item types as ints
-    public final int RESOURCE = 0;
-    public final int ITEMPASSIVE = 1;
-    public final int ITEMACTIVE = 2;
+    public static int RESOURCE = 0;
+    public static int ITEMPASSIVE = 1;
+    public static int ITEMACTIVE = 2;
 
     //Stores the total amount of item types
-    public final int itemTypeAmount = 3;
+    public static int itemTypeAmount = 3;
 
     //Stores resource types as int
-    public final int DOORKEY = 0;
-    public final int COIN = 1;
-    public final int HEART = 2;
+    public static int DOORKEY = 0;
+    public static int COIN = 1;
+    public static int HEART = 2;
 
     //Stores the amount of resources
-    public final int rItemAmount = 3;
+    public static int rItemAmount = 3;
 
     //Stores active item types as ints
-    public final int DOUBLEPROJ = 0;
-    public final int INVINCIBILITY = 1;
+    public static int DOUBLEPROJ = 0;
+    public static int INVINCIBILITY = 1;
 
     //Stores the amount of active items
-    public final int aItemAmount = 2;
+    public static int aItemAmount = 2;
 
     //Stores passive items as ints
     //Stores the projectile modifiers
-    public final int HOMING = 0;
-    public final int SCATTER = 1;
+    public static int HOMING = 0;
+    public static int SCATTER = 1;
 
     //Stores the stat upgrades
-    public final int SPEEDUP = 2;
-    public final int DMGUP = 3;
-    public final int FIRERATEUP = 4;
-    public final int RANGEUP = 5;
-    public final int AMOUNTUP = 6;
-    public final int ACCURACYUP = 7;
+    public static int SPEEDUP = 2;
+    public static int DMGUP = 3;
+    public static int FIRERATEUP = 4;
+    public static int RANGEUP = 5;
+    public static int AMOUNTUP = 6;
+    public static int ACCURACYUP = 7;
 
     //Stores the amount of passive items
-    public final int pItemAmount = 8;
+    public static int pItemAmount = 8;
 
     //Tracks the amount of projectile modifiers
-    public final int projModAmount = 2;
+    public static int projModAmount = 2;
 
     //Stores the boss behavior phases as ints
-    public final int NORMALMODE = 0;
-    public final int RAGEMODE = 1;
-    public final int FURYMODE = 2;
+    public static int NORMALMODE = 0;
+    public static int RAGEMODE = 1;
+    public static int FURYMODE = 2;
 
     //Tracks the time between update
     public static float deltaTime = 0;
