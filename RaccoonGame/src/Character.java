@@ -445,13 +445,6 @@ public abstract class Character extends Interactable {
     }
 	
 	//methods
-	void update() {
-		
-	}
-	
-	void move() {
-		
-	}
 	
 	void setbaseStat() {
 		
