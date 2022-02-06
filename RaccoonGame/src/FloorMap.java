@@ -3,6 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import com.engine.core.gfx.SpriteSheet;
+
 import java.awt.Rectangle;
 
 public class FloorMap {
@@ -244,33 +247,123 @@ public class FloorMap {
         } while (tileStack.size() != 0);
     }
 
-        /// <summary>
-        /// Adds all doors to a room
-        /// </summary>
-        /// <param name="roomID"></param>
-        /// <param name="player"></param>
-        public void AddDoors(int roomID , Player player)
+    /// <summary>
+    /// Adds all doors to a room
+    /// </summary>
+    /// <param name="roomID"></param>
+    /// <param name="player"></param>
+    public void AddDoors(int roomID , Player player)
+    {
+        //Adds a door if there are no walls on that side of the room
+        if (!grid.get(roomID).GetHasWall()[Data.UP])
         {
-            //Adds a door if there are no walls on that side of the room
-            if (!grid.get(roomID).GetHasWall()[Data.UP])
-            {
-                //Adds a door to the top of the room
-                room.get(roomID).AddDoors(player, room.get(roomID - Data.mapNodeSize), room.toArray(), Data.UP, false);
-            }
-            if (!grid.get(roomID).GetHasWall()[Data.RIGHT])
-            {
-                //Adds a door to the right of the room
-                room.get(roomID).AddDoors(player, room.get(roomID + 1), room.toArray(), Data.RIGHT, false);
-            }
-            if (!grid.get(roomID).GetHasWall()[Data.DOWN])
-            {
-                //Adds a locked door to the bottom of the room
-                room.get(roomID).AddDoors(player, room.get(roomID + Data.mapNodeSize), room.toArray(),Data.DOWN, false);
-            }
-            if (!grid.get(roomID).GetHasWall()[Data.LEFT])
-            {
-                //Adds a door to the left of the room
-                room.get(roomID).AddDoors(player, room.get(roomID - 1), room.toArray(), Data.LEFT, false);
-            }
+            //Adds a door to the top of the room
+            room.get(roomID).AddDoors(player, room.get(roomID - Data.mapNodeSize), room.toArray(), Data.UP, false);
         }
+        if (!grid.get(roomID).GetHasWall()[Data.RIGHT])
+        {
+            //Adds a door to the right of the room
+            room.get(roomID).AddDoors(player, room.get(roomID + 1), room.toArray(), Data.RIGHT, false);
+        }
+        if (!grid.get(roomID).GetHasWall()[Data.DOWN])
+        {
+            //Adds a locked door to the bottom of the room
+            room.get(roomID).AddDoors(player, room.get(roomID + Data.mapNodeSize), room.toArray(),Data.DOWN, false);
+        }
+        if (!grid.get(roomID).GetHasWall()[Data.LEFT])
+        {
+            //Adds a door to the left of the room
+            room.get(roomID).AddDoors(player, room.get(roomID - 1), room.toArray(), Data.LEFT, false);
+        }
+    }
+
+        /// <summary>
+    /// Removes the adjecent room's wall based on position
+    /// </summary>
+    /// <param name="tileA"></param>
+    /// <param name="tileB"></param>
+    private void RemoveWalls(RoomNode tileA, RoomNode tileB)
+    {
+        //Sets the difference is rows and colums
+        int x = tileA.GetCol() - tileB.GetCol();
+        int y = tileA.GetRow() - tileB.GetRow();
+
+        //The removes walls based on node position
+        if (x == 1)
+        {
+            //The right and left wall of tileA and tileB are removed
+            tileA.GetHasWall()[Data.LEFT] = false;
+            tileB.GetHasWall()[Data.RIGHT] = false;
+
+            tileA.OpenDoors(Data.WEST);
+            tileB.OpenDoors(Data.EAST);
+        }
+        else if (x == -1)
+        {
+            //The right and left wall of tileA and tileB are removed
+            tileA.GetHasWall()[Data.RIGHT] = false;
+            tileB.GetHasWall()[Data.LEFT] = false;
+
+            tileA.OpenDoors(Data.EAST);
+            tileB.OpenDoors(Data.WEST);
+        }
+        if (y == 1)
+        {
+            //The top and bottom wall of tileA and tileB are removed
+            tileA.GetHasWall()[Data.UP] = false;
+            tileB.GetHasWall()[Data.DOWN] = false;
+
+            tileA.OpenDoors(Data.NORTH);
+            tileB.OpenDoors(Data.SOUTH);
+        }
+        else if (y == -1)
+        {
+            //The top and bottom wall of tileA and tileB are removed
+            tileA.GetHasWall()[Data.DOWN] = false;
+            tileB.GetHasWall()[Data.UP] = false;
+
+            tileA.OpenDoors(Data.SOUTH);
+            tileB.OpenDoors(Data.NORTH);
+        }
+
+        //Checks for a power of two to determine a single entry room
+        tileA.CalcIsDeadEnd();
+        tileB.CalcIsDeadEnd();
+    }
+
+    /// <summary>
+    /// Regenerates and shuffles the possible item spawns
+    /// </summary>
+    public void SetItemStack()
+    {
+        //Empties the item stack
+        Data.possiblePassive.clear();
+        Data.possibleActive.clear();
+
+        for(int i = 0; i < Data.pItemAmount-1;i++)
+        {
+            Data.possiblePassive.push(i);
+        }
+        for (int i = 0; i < Data.aItemAmount - 1; i++)
+        {
+            Data.possibleActive.push(i);
+        }
+
+        //Randomly suffles the item orders
+        Data.possibleActive = new Stack<Integer>();
+        Data.possibleActive.addAll(Data.Shuffle(new ArrayList<>(Data.possibleActive)));
+
+        Data.possiblePassive = new Stack<Integer>();
+        Data.possiblePassive.addAll(Data.Shuffle(new ArrayList<>(Data.possiblePassive)));
+    }
+
+    /// <summary>
+    /// Draws the current room
+    /// </summary>
+    /// <param name="spriteBatch"></param>
+    public void Draw(SpriteSheet sprite)
+    {
+        //Draws the current room
+        room.get(currentRoom).Draw(sprite);
+    }
 }

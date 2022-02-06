@@ -2,6 +2,7 @@ import java.awt.Rectangle;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Data {
 
@@ -138,6 +139,10 @@ public class Data {
 
     //Stores the amount of boss types
     public static int bossTypeAmount = 2;
+
+    //Tracks the id of all possible items that can spawn
+    public static Stack<Integer> possiblePassive = new Stack<Integer>();
+    public static Stack<Integer> possibleActive = new Stack<Integer>();
 
     //Stores item types as ints
     public static int RESOURCE = 0;
