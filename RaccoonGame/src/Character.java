@@ -1,4 +1,5 @@
-import java.awt.List;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class Character extends Interactable {
@@ -23,7 +24,7 @@ public abstract class Character extends Interactable {
     protected List<Float>[] projBuff;
 
     //Tracks all the enemies of the current character
-    protected List<Character> enemy = new List<Character>();
+    protected List<Character> enemy = new ArrayList<Character>();
 
     //Tracks base character stats
     protected int maxHP;
@@ -46,7 +47,7 @@ public abstract class Character extends Interactable {
     protected float invulnTimer;
 
     //Tracks the character inventory
-    protected Items.CharacterInventory inventory;
+    protected CharacterInventory inventory;
 
     //Tracks the visual oppacity data of the character
     protected byte invulnAlpha = (byte) 150;
@@ -56,9 +57,9 @@ public abstract class Character extends Interactable {
     protected int coinAmount;
     protected int keyAmount;
 
-    public Character(Maps.Room currentRoom, SpriteSheet sprite))
+    public Character(Room currentRoom, SpriteSheet sprite)
     {
-    	super();
+    	super(currentRoom, sprite);
     	
         //Sets the current room
         this.currentRoom = currentRoom;
@@ -74,16 +75,16 @@ public abstract class Character extends Interactable {
         setTouchingWall(new boolean[4]);
 
         //Sets the array of lists of projectile buffs
-        projBuff = new List<float>[Data.statAmount];
+        projBuff = new ArrayList<Float>(Data.statAmount);
 
         //Sets the array of projectile modifiers
-        projMods = new bool[Data.projModAmount];
+        projMods = new boolean[Data.projModAmount];
 
         //Loops through all the projectile buffs
         for (int i = 0; i < Data.statAmount; i++)
         {
             //Sets the current projBuff list
-            projBuff[i] = new List<float>();
+            projBuff[i] = new ArrayList<Float>();
         }
 
         //Sets the pushing speed
@@ -100,7 +101,7 @@ public abstract class Character extends Interactable {
         knockbackImumne = false;
 
         //Create an inventory for the charcter
-        inventory = new Items.CharacterInventory(currentRoom, this);
+        inventory = new CharacterInventory(currentRoom, this);
 
         //Sets the visual data of the character
         this.sprite = sprite;
@@ -186,7 +187,7 @@ public abstract class Character extends Interactable {
     /// Retrives the current inventory of the character
     /// </summary>
     /// <returns></returns>
-    public Items.CharacterInventory GetInventory()
+    public CharacterInventory GetInventory()
     {
         return inventory;
     }
@@ -270,7 +271,7 @@ public abstract class Character extends Interactable {
     /// <summary>
     /// Updates the character
     /// </summary>
-    public override void Update()
+    public void Update()
     {
         //Sets the character as clean
         isDirty = false;
@@ -287,7 +288,7 @@ public abstract class Character extends Interactable {
         //Calls CalcMoveDir
         CalcMoveDir();
 
-        base.Update();
+        Update();
     }
 
     /// <summary>
@@ -422,7 +423,7 @@ public abstract class Character extends Interactable {
     public void Death()
     {
         //Tracks the item to be dropped
-        Items.Item droppedItem;
+        Item droppedItem;
 
         //Loops for all items and dropps them
         for (int i = 0; i < inventory.GetItems().Length; i++)
