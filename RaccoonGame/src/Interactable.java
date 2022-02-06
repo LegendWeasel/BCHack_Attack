@@ -45,6 +45,8 @@ public abstract class Interactable {
 	//Tracks if the entity is currently teleporting
 	protected boolean isTeleporting;
 	
+	protected boolean isFriendly;
+	
 	
 	//constructor
 	public Interactable(Room currentRoom, SpriteSheet sprite)
@@ -312,6 +314,14 @@ public abstract class Interactable {
 
 	public void setTeleporting(boolean isTeleporting) {
 		this.isTeleporting = isTeleporting;
+	}
+	
+	public boolean isFriendly() {
+		return isFriendly;
+	}
+	
+	public boolean setFriendly(boolean isFriendly) {
+		return this.isFriendly = isFriendly;
 	}
 	
 }

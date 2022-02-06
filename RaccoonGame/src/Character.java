@@ -349,13 +349,5 @@ public abstract class Character extends Interactable {
         //Set alive to false
         isAlive = false;
     }
-<<<<<<< HEAD
-=======
-	
-	//methods
-	
-	void setbaseStat() {
-		
-	}
->>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
+
 }
