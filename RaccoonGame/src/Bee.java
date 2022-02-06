@@ -31,8 +31,8 @@ public class Bee extends Character {
         	accel.x = 0; accel.y = 0;
         }
         
-        double xDist= player.getCurrentPos().x- this.getCurrentPos().x;
-        double yDist= player.getCurrentPos().y- this.getCurrentPos().y;
+        double xDist= player.getHitBox().getCenterX() -this.getHitBox().getCenterY();
+        double yDist= player.getHitBox().getCenterX() -this.getHitBox().getCenterY();
         
         distToPlayer = Math.sqrt(Math.pow(player.getHitBox().getCenterX() -this.getHitBox().getCenterY(),2) +
                 Math.pow(player.getHitBox().getCenterY()- this.getHitBox().getCenterY(),2));
