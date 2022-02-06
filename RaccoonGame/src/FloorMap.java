@@ -1,11 +1,13 @@
-package World;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+import java.awt.Rectangle;
 
 public class FloorMap {
     //Tracks the outline grid of the map
-    private List<RoomNode> grid = new List<RoomNode>();
+    private List<RoomNode> grid = new ArrayList<RoomNode>();
     private RoomNode currentTile;
     private RoomNode nextTile;
 
@@ -13,7 +15,7 @@ public class FloorMap {
     Stack tileStack = new Stack();
 
     //Tracks all the rooms of a map
-    private List<Room> room = new List<Room>();
+    private List<Room> room = new ArrayList<Room>();
 
     //Tracks the index of the current room
     private int currentRoom = 0;
@@ -40,21 +42,23 @@ public class FloorMap {
                 for (int col = 0; col < Data.mapNodeSize; col++)
                 {
                     //Adds the node
-                    grid.Add(new RoomNode(row, col, Data.mapNodeSize));
+                    grid.add(new RoomNode(data, row, col, Data.mapNodeSize));
                 }
             }
 
             //Loops through all nodes and finds its neighbor
-            for (int i = 0; i < grid.Count; i++)
+            for (int i = 0; i < grid.size(); i++)
             {
                 //Finds the current nodes neighbor
-                grid[i].FindNeighbors(grid);
+                grid.get(i).FindNeighbors(grid);
             }
 
             //Sets the current tile as a random tile
-            currentTile = grid[Data.rng.Next(grid.Count)];
+            currentTile = grid.get(Data.getRandomNumber(0,grid.size()));
 
             //Creates a start room
             room.Add(new StartRoom(0));
         }
+
+        
 }

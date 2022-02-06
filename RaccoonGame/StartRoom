@@ -1,0 +1,16 @@
+class StartRoom : Room
+{
+        public StartRoom(int roomID) : base(roomID)
+        {
+
+        }
+
+        /// <summary>
+        /// Populates the room
+        /// </summary>
+        /// <param name="player"></param>
+        public override void Populate(Player player)
+        {
+            base.Populate(player);
+        }
+}
