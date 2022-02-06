@@ -1,15 +1,16 @@
-class StartRoom : Room
+public class StartRoom extends Room
 {
-        public StartRoom(int roomID) : base(roomID)
+        public StartRoom(int roomID)
         {
-
+            super(roomID);
         }
 
         /// <summary>
         /// Populates the room
         /// </summary>
         /// <param name="player"></param>
-        public override void Populate(Player player)
+        @Override
+        public void Populate(Player player)
         {
             base.Populate(player);
         }
