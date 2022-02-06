@@ -238,7 +238,7 @@ public class Player extends Character{
         //Sets the characters positional stats
         maxVelocity = new Vector2(250, 250);
         currentPos = new Vector2(Data.roomBoundary.Center.X, Data.roomBoundary.Center.Y);
-        destRec = new Rectangle((int)currentPos.X, (int)currentPos.Y, sprite.Width << 1, sprite.Height << 1);
+        hitBox = new Rectangle((int)currentPos.X, (int)currentPos.Y, sprite.Width << 1, sprite.Height << 1);
 
         //Sets starting motion values to zero
         StopMotion();

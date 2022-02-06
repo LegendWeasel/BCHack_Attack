@@ -12,7 +12,7 @@ public abstract class Interactable {
 	//Tracks the location of the object on the map
     protected Room currentRoom;
 	
-	protected Rectangle destRec;
+	protected Rectangle hitBox;
 	
 	protected SpriteSheet sprite;
 	
@@ -78,7 +78,7 @@ public abstract class Interactable {
         this.spriteAnim = spriteAnim;
 
         //Sets the dest rec of the entity based on sprite size
-        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
+        hitBox = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
     }
 	
 	
@@ -115,19 +115,19 @@ public abstract class Interactable {
 		
 
         //Keeps the character from moving out the boundary
-		if(destRec.OUT_TOP + currentVelocity.getY() * Data.deltaTime < Data.roomBoundary.OUT_TOP && !isTeleporting) {
+		if(hitBox.OUT_TOP + currentVelocity.getY() * Data.deltaTime < Data.roomBoundary.OUT_TOP && !isTeleporting) {
 			//The character is stopped right below the top boundary
 			currentPos.y = Data.roomBoundary.y;
 			currentVelocity.setY(currentVelocity.getY() * -0.5f);
 		}
       
-		if(destRec.OUT_BOTTOM + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
+		if(hitBox.OUT_BOTTOM + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
 			//The character is stopped right below the left boundary
-			currentPos.y = Data.roomBoundary.OUT_BOTTOM - destRec.height;
+			currentPos.y = Data.roomBoundary.OUT_BOTTOM - hitBox.height;
 			currentVelocity.setX(currentVelocity.getX() * -0.5f);
 		}
 		
-        if (destRec.OUT_LEFT + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_LEFT && !isTeleporting)
+        if (hitBox.OUT_LEFT + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_LEFT && !isTeleporting)
         {
             //The character is stopped right below the left boundary
             currentPos.x = Data.roomBoundary.OUT_LEFT;
@@ -136,10 +136,10 @@ public abstract class Interactable {
             //The character is touching the left wall
             touchingWall[3] = true;
         }
-        if (destRec.OUT_RIGHT + currentVelocity.getX() * Data.deltaTime > Data.roomBoundary.OUT_RIGHT && !isTeleporting)
+        if (hitBox.OUT_RIGHT + currentVelocity.getX() * Data.deltaTime > Data.roomBoundary.OUT_RIGHT && !isTeleporting)
         {
             //The character is stopped right below the right boundary
-            currentPos.x = Data.roomBoundary.OUT_RIGHT - destRec.OUT_RIGHT;
+            currentPos.x = Data.roomBoundary.OUT_RIGHT - hitBox.OUT_RIGHT;
             currentVelocity.setX(currentVelocity.getX() * -0.5f);
 
             //The character is touching the right wall
@@ -147,7 +147,7 @@ public abstract class Interactable {
         }
 
         //Sets the destination rectangle as the current position
-        destRec.setLocation((int)currentPos.x, (int)currentPos.y);
+        hitBox.setLocation((int)currentPos.x, (int)currentPos.y);
 	}
 	void update() {
 		move();
@@ -165,13 +165,13 @@ public abstract class Interactable {
 	}
 
 
-	public Rectangle getDestRec() {
-		return destRec;
+	public Rectangle getHitBox() {
+		return hitBox;
 	}
 
 
-	public void setDestRec(Rectangle destRec) {
-		this.destRec = destRec;
+	public void setHitBox(Rectangle hitBox) {
+		this.hitBox = hitBox;
 	}
 
 
