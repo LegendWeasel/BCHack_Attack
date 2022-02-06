@@ -37,7 +37,7 @@ public class Mole extends Character {
     public void SetBaseStats()
     {
         //Sets the character health stats
-        maxHP = (int)(2f * Data.difficultyMulti);
+        maxHP = 2;
         currentHP = maxHP;
         baseHP = maxHP;
 

@@ -1,3 +1,5 @@
+import com.engine.core.gfx.SpriteSheet;
+
 public class BossRoom extends Room{
     //Tracks the trap door to move to the next floor
     protected ZoneDoor zoneDoor;
@@ -12,12 +14,13 @@ public class BossRoom extends Room{
     /// </summary>
     /// <param name="player"></param>
     /// <param name="map"></param>
-    public override void Update(Player player, Room[] map)
+    @Override
+    public void Update(Player player, Room[] map)
     {
         //Adds a trap door to the room if the boss is dead
         if(characterManager.GetCharacter()[Data.BOSS].Count() == 0)
         {
-            trapdoor = new Trapdoor(this, Sprites.trapdoor, null);
+            zoneDoor = new ZoneDoor(this, Sprites.trapdoor, null);
         }
 
         //Checks for collisions if the trap door exists
@@ -27,26 +30,28 @@ public class BossRoom extends Room{
             trapdoor.PlayerCollison(player);
         }
 
-        base.Update(player, map);
+        super.Update(player, map);
     }
 
     /// <summary>
     /// Spawns the boss of the room
     /// </summary>
     /// <param name="player"></param>
-    public override void Populate(Player player)
+    @Override
+    public void Populate(Player player)
     {
         //Adds a random boss enemy
-        characterManager.AddBoss(Data.rng.Next(Data.bossTypeAmount), 
-                                 new Vector2(Data.roomBoundary.Center.X, Data.roomBoundary.Center.Y), player);
-        base.Populate(player);
+        characterManager.AddBoss((Data.curZone), 
+                                 new Vector2(Data.roomBoundary.getCenterX(), Data.roomBoundary.getCenterY()), player);
+        super.Populate(player);
     }
 
     /// <summary>
     /// Draws the room
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public override void Draw(SpriteBatch spriteBatch)
+    @Override
+    public void Draw(SpriteSheet sprite)
     {
         base.Draw(spriteBatch);
 

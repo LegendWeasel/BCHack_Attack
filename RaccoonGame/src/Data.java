@@ -49,10 +49,10 @@ public class Data {
     //Sets the difficulty selection screen
     public static int DIFFSCREEN = 4;
 
-    //Sets the sub screen ID
-    public static int EASY = 0;
-    public static int MEDIUM = 1;
-    public static int HARD = 2;
+    // //Sets the sub screen ID
+    // public static int EASY = 0;
+    // public static int MEDIUM = 1;
+    // public static int HARD = 2;
 
     //Tracks the amount of subscreens for the difficulty selection
     public static int SUBSCREENNUMDIFF = 3;
@@ -79,8 +79,8 @@ public class Data {
     public static float degToRad = (float)(Math.PI / 180);
     public static int toPercent = 100;
 
-    //Track the diffuculty multiplier
-    public static float difficultyMulti = 1f;
+    //Track the current zone
+    public static int curZone = 1;
 
     //Tracks the size of a room tile
     public static int tileSize = 40;
