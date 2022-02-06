@@ -58,18 +58,20 @@ public class Character extends Interactable {
 
     public Character(Maps.Room currentRoom, SpriteSheet sprite))
     {
-    	
     	super();
+    	
         //Sets the current room
         this.currentRoom = currentRoom;
 
         //Sets the movement data of the character
-        this.currentVelocity = new Vector2(0,0);
-        accel = new Vector2(0,0);
+        this.currentVelocity.x = 0;
+        this.currentVelocity.y = 0;
+        accel.x= 0;
+        accel.y= 0;
         maxAccel = new Vector2(100,100);
 
         //Set the array of touching wall booleans
-        touchingWall = new bool[4];
+        setTouchingWall(new boolean[4]);
 
         //Sets the array of lists of projectile buffs
         projBuff = new List<float>[Data.statAmount];
@@ -322,7 +324,7 @@ public class Character extends Interactable {
     /// <summary>
     /// Allows the character to attack
     /// </summary>
-    public virtual void Attack()
+    public void Attack()
     {
         //Base
     }
@@ -360,7 +362,7 @@ public class Character extends Interactable {
         }
     }
 
-    public virtual void CalcMoveDir()
+    public void CalcMoveDir()
     {
         //Base
     }

@@ -12,21 +12,21 @@ public abstract class Interactable {
 	//Tracks the location of the object on the map
     protected Maps.Room currentRoom;
 	
-	private Rectangle destRec;
+	protected Rectangle destRec;
 	
-	private SpriteSheet sprite;
+	protected SpriteSheet sprite;
 	
-	private Rectangle spriteBox;
+	protected Rectangle spriteBox;
 	
-	private Point currentVelocity;
+	protected Vector2 currentVelocity;
 	
-	private Point maxVelocity;
+	protected Vector2 maxVelocity;
 	
-	private Point moveDir;
+	protected Point moveDir;
 	
-	private Point currentPos;
+	protected Point currentPos;
 	
-	private Point accel;
+	protected Point accel;
 	
 	protected Animation spriteAnim;
     protected Color spriteColor = Color.white;
@@ -38,9 +38,9 @@ public abstract class Interactable {
 	
 	protected int pushForce;
 	
-	private boolean touchingWall[];
+	protected boolean touchingWall[];
 	
-	private boolean isTeleporting;
+	protected boolean isTeleporting;
 	
 	
 	//constructor
@@ -55,15 +55,12 @@ public abstract class Interactable {
         //Sets the pushing speed
         pushForce = 75;
 
-        //Sets the movement data of the entity
-        currentVelocity.x = 0; 
-        currentVelocity.y = 0;
-        maxVelocity.x = 100; 
-        maxVelocity.y=100;
+      //Sets the movement data of the entity
+        currentVelocity = new Vector2(0, 0);
+        maxVelocity = new Vector2(100, 100);
 
         //Sets the move directions based on current velocity
-        moveDir.x= (int)Math.signum(currentVelocity.x); 
-        moveDir.y= (int) Math.signum(currentVelocity.y);
+        moveDir = new Point(Math.Sign(currentVelocity.x), Math.Sign(currentVelocity.y));
 
         //Set the array of touching wall booleans
         touchingWall = new boolean[4];
@@ -152,34 +149,165 @@ public abstract class Interactable {
 		move();
 		updatePosition();
 	}
-	public Rectangle getHitbox() {
+
+
+	public Maps.Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+
+	public void setCurrentRoom(Maps.Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+
+	public Rectangle getDestRec() {
 		return destRec;
 	}
-	public void setHitbox(Rectangle hitbox) {
-		this.destRec = hitbox;
+
+
+	public void setDestRec(Rectangle destRec) {
+		this.destRec = destRec;
 	}
+
+
 	public SpriteSheet getSprite() {
 		return sprite;
 	}
+
+
 	public void setSprite(SpriteSheet sprite) {
 		this.sprite = sprite;
 	}
+
+
 	public Rectangle getSpriteBox() {
 		return spriteBox;
 	}
+
+
 	public void setSpriteBox(Rectangle spriteBox) {
 		this.spriteBox = spriteBox;
 	}
-	public Point getSpeed() {
+
+
+	public Vector2 getCurrentVelocity() {
 		return currentVelocity;
 	}
-	public void setSpeed(Point speed) {
-		this.currentVelocity = speed;
+
+
+	public void setCurrentVelocity(Vector2 currentVelocity) {
+		this.currentVelocity = currentVelocity;
 	}
-	public Point getPos() {
+
+
+	public Vector2 getMaxVelocity() {
+		return maxVelocity;
+	}
+
+
+	public void setMaxVelocity(Vector2 maxVelocity) {
+		this.maxVelocity = maxVelocity;
+	}
+
+
+	public Point getMoveDir() {
 		return moveDir;
 	}
-	public void setPos(Point pos) {
-		this.moveDir = pos;
+
+
+	public void setMoveDir(Point moveDir) {
+		this.moveDir = moveDir;
 	}
+
+
+	public Point getCurrentPos() {
+		return currentPos;
+	}
+
+
+	public void setCurrentPos(Point currentPos) {
+		this.currentPos = currentPos;
+	}
+
+
+	public Point getAccel() {
+		return accel;
+	}
+
+
+	public void setAccel(Point accel) {
+		this.accel = accel;
+	}
+
+
+	public Animation getSpriteAnim() {
+		return spriteAnim;
+	}
+
+
+	public void setSpriteAnim(Animation spriteAnim) {
+		this.spriteAnim = spriteAnim;
+	}
+
+
+	public Color getSpriteColor() {
+		return spriteColor;
+	}
+
+
+	public void setSpriteColor(Color spriteColor) {
+		this.spriteColor = spriteColor;
+	}
+
+
+	public float getGroundFriction() {
+		return groundFriction;
+	}
+
+
+	public void setGroundFriction(float groundFriction) {
+		this.groundFriction = groundFriction;
+	}
+
+
+	public float getBaseFriction() {
+		return baseFriction;
+	}
+
+
+	public void setBaseFriction(float baseFriction) {
+		this.baseFriction = baseFriction;
+	}
+
+
+	public int getPushForce() {
+		return pushForce;
+	}
+
+
+	public void setPushForce(int pushForce) {
+		this.pushForce = pushForce;
+	}
+
+
+	public boolean[] getTouchingWall() {
+		return touchingWall;
+	}
+
+
+	public void setTouchingWall(boolean[] touchingWall) {
+		this.touchingWall = touchingWall;
+	}
+
+
+	public boolean isTeleporting() {
+		return isTeleporting;
+	}
+
+
+	public void setTeleporting(boolean isTeleporting) {
+		this.isTeleporting = isTeleporting;
+	}
+	
 }
