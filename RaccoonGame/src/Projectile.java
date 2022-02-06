@@ -45,7 +45,7 @@ public class Projectile extends Interactable{
 
         //Sets the positional data of the projectile
         currentPos = owner.getCurrentPos();
-        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, (int)stat[Data.SIZE], (int)stat[Data.SIZE]);
+        hitBox = new Rectangle((int)currentPos.x, (int)currentPos.y, (int)stat[Data.SIZE], (int)stat[Data.SIZE]);
 
         //Sets the color of the projectile based on ownership
         if (this.isFriendly)
