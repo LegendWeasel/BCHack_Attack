@@ -1,4 +1,6 @@
-import com.engine.core.gfx.SpriteSheet;
+import com.engine.core.gfx.*;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Player extends Character{
     //Tracks which direction the projectile will be traveling
@@ -46,7 +48,7 @@ public class Player extends Character{
     /// Sets the current position
     /// </summary>
     /// <param name="pos"></param>
-    public void SetCurrentPos(Vector2 pos)
+    public void SetCurrentPos(Point pos)
     {
         this.currentPos = pos;
     }
@@ -71,13 +73,12 @@ public class Player extends Character{
 
         updateFireingTimer();
 
-        base.Update();
+        super.Update();
     }
 
     /// <summary>
     /// Allows the player to fire projectiles
     /// </summary>
-    @Override
     public void Attack(float projAngle)
     {
         currentRoom.AddProj(new Projectile(this, GenProjVel(projAngle), null));
@@ -113,7 +114,7 @@ public class Player extends Character{
         Vector2 projDir = new Vector2();
 
         //Applies inaccuracy based on player stats
-        projAngle += Data.getRandomNumber(-projStats.get(Data.ACCURACY), projStats.get(Data.ACCURACY));
+        projAngle += Data.getRandomNumber(-(int)projStats[Data.ACCURACY], (int)projStats[Data.ACCURACY]);
 
         //Converts angles from degrees to radians
         projAngle *= Data.degToRad;
@@ -122,8 +123,11 @@ public class Player extends Character{
         projDir.x = (float)(Math.cos(projAngle));
         projDir.y = (float)(Math.sin(projAngle));
 
-        projDir *= projStats[Data.SPEED];
-        projDir += currentVelocity * 0.5f;
+        projDir.x *= projStats[Data.SPEED];
+        projDir.y *= projStats[Data.SPEED];
+
+        projDir.x += currentVelocity.x * 0.5f;
+        projDir.y += currentVelocity.y * 0.5f;
 
         //Returns the firing direction
         return projDir;
@@ -139,22 +143,22 @@ public class Player extends Character{
         if (moveDir[Data.UP])
         {
             //The player is accelerating up
-            accel.Y = -maxAccel.Y;
+            accel.y = -maxAccel.y;
         }
         if (moveDir[Data.DOWN])
         {
             //The player is accelerating down
-            accel.Y = maxAccel.Y;
+            accel.y = maxAccel.y;
         }
         if (moveDir[Data.LEFT])
         {
             //The player is accelerating to the left
-            accel.X = -maxAccel.X;
+            accel.x = -maxAccel.x;
         }
         if (moveDir[Data.RIGHT])
         {
             //The player is accelerating to the right
-            accel.X = maxAccel.X;
+            accel.x = maxAccel.x;
         }
 
 
@@ -162,16 +166,16 @@ public class Player extends Character{
         if(!moveDir[Data.UP] && !moveDir[Data.DOWN])
         {
             //Sets vertical accel to 0
-            accel.Y = 0;
+            accel.y = 0;
         }
         if (!moveDir[Data.LEFT] && !moveDir[Data.RIGHT])
         {
             //Sets horizontal accel to zero
-            accel.X = 0;
+            accel.x = 0;
         }
 
         //Calls the base movement
-        base.Movement();
+        super.move();
     }
 
     /// <summary>
@@ -200,7 +204,7 @@ public class Player extends Character{
         baseProjStats[Data.SIZE] = 30; //30 pixels wide
 
         //Sets the current projectile stats
-        for (int i = 0; i < projStats.Length; i++)
+        for (int i = 0; i < projStats.length; i++)
         {
             //Sets the projectile stat
             projStats[i] = baseProjStats[i];
@@ -213,15 +217,11 @@ public class Player extends Character{
         //Sets the player resources
         coinAmount = 0;
         keyAmount = 0;
-        inventory.Empty();
+        //inventory.Empty();
 
         //Sets player player state
         inAir = false;
         isAlive = true;
-
-        //Sets player jumping data
-        jumpTimer = 0;
-        maxJumpTime = 0.5f;
 
         //Sets the player invincability timer
         maxInvulnTime = 1;
@@ -235,8 +235,8 @@ public class Player extends Character{
 
         //Sets the characters positional stats
         maxVelocity = new Vector2(250, 250);
-        currentPos = new Vector2(Data.roomBoundary.Center.X, Data.roomBoundary.Center.Y);
-        destRec = new Rectangle((int)currentPos.X, (int)currentPos.Y, sprite.Width << 1, sprite.Height << 1);
+        currentPos = new Point((int)Data.roomBoundary.getCenterX(), (int)Data.roomBoundary.getCenterY());
+        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
 
         //Sets starting motion values to zero
         StopMotion();

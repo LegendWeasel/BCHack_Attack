@@ -30,7 +30,7 @@ class MonsterRoom extends Room {
         //Adds the monsters
         SpawnMonsters(player);
 
-        base.Populate(player);
+        super.Populate(player);
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ class MonsterRoom extends Room {
                     for (int i = 0; i < spawnAmount; i++)
                     {
                         //Adds the current monster at the node
-                        characterManager.AddMonster(monsterType, new Vector2(spawnNode[0].X, spawnNode[0].Y), player);
+                        characterManager.AddMonster(monsterType, new Vector2(spawnNode.get(0).x, spawnNode.get(0).y), player);
                     }
                     break;
                 }
