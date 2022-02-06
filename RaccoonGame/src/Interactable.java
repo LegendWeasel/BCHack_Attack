@@ -68,14 +68,7 @@ public abstract class Interactable {
 			currentPos.y = Data.roomBoundary.y;
 			currentVelocity.y *= -0.5f;
 		}
-//        if (destRec.Bottom + currentVelocity.Y * Data.deltaTime > Data.roomBoundary.Bottom && !isTeleporting)
-//        {
-//            //The character is stopped right below the bottom boundry
-//            currentPos.Y = Data.roomBoundary.Bottom - destRec.Height;
-//            currentVelocity.Y *= -0.5f;
-//
-//            //The character is touching the bottom wall
-//            touchingWall[Data.DOWN] = true;
+//        
 //        }
 		if(destRec.OUT_BOTTOM + currentVelocity.x * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
 			//The character is stopped right below the left boundary
@@ -83,27 +76,27 @@ public abstract class Interactable {
 			currentVelocity.x *= -0.5f;
 		}
 		
-//        if (destRec.Left + currentVelocity.X * Data.deltaTime < Data.roomBoundary.Left && !isTeleporting)
-//        {
-//            //The character is stopped right below the left boundry
-//            currentPos.X = Data.roomBoundary.Left;
-//            currentVelocity.X *= -0.5f;
-//
-//            //The character is touching the left wall
-//            touchingWall[Data.LEFT] = true;
-//        }
-//        if (destRec.Right + currentVelocity.X * Data.deltaTime > Data.roomBoundary.Right && !isTeleporting)
-//        {
-//            //The character is stopped right below the right boundry
-//            currentPos.X = Data.roomBoundary.Right - destRec.Width;
-//            currentVelocity.X *= -0.5f;
-//
-//            //The character is touching the right wall
-//            touchingWall[Data.RIGHT] = true;
-//        }
-//
-//        //Sets the destination rectangle as the current position
-//        destRec.Location = new Point((int)currentPos.X, (int)currentPos.Y);
+        if (destRec.OUT_LEFT + currentVelocity.x * Data.deltaTime < Data.roomBoundary.OUT_LEFT && !isTeleporting)
+        {
+            //The character is stopped right below the left boundary
+            currentPos.x = Data.roomBoundary.OUT_LEFT;
+            currentVelocity.x *= -0.5f;
+
+            //The character is touching the left wall
+            touchingWall[3] = true;
+        }
+        if (destRec.OUT_RIGHT + currentVelocity.x * Data.deltaTime > Data.roomBoundary.OUT_RIGHT && !isTeleporting)
+        {
+            //The character is stopped right below the right boundary
+            currentPos.x = Data.roomBoundary.OUT_RIGHT - destRec.OUT_RIGHT;
+            currentVelocity.x *= -0.5f;
+
+            //The character is touching the right wall
+            touchingWall[1] = true;
+        }
+
+        //Sets the destination rectangle as the current position
+        destRec.setLocation((int)currentPos.x, (int)currentPos.y);
 	}
 	void update() {
 		move();
