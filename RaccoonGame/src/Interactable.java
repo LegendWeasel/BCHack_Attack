@@ -60,7 +60,7 @@ public abstract class Interactable {
         maxVelocity = new Vector2(100, 100);
 
         //Sets the move directions based on current velocity
-        moveDir = new Point(Math.Sign(currentVelocity.x), Math.Sign(currentVelocity.y));
+        moveDir = new Point(Math.signum(currentVelocity.getX()), Math.signum(currentVelocity.getY()));
 
         //Set the array of touching wall booleans
         touchingWall = new boolean[4];
@@ -85,17 +85,17 @@ public abstract class Interactable {
 		currentVelocity.y += accel.y - Math.signum(moveDir.y) * groundFriction;
 
       	//Sets the move directions based on current velocity
-		moveDir.x += Math.signum(currentVelocity.x);
-		moveDir.y += Math.signum(currentVelocity.y);
+		moveDir.x += Math.signum(currentVelocity.getX());
+		moveDir.y += Math.signum(currentVelocity.getY());
 		
 		//Sets the character's velocity to the maximum if current velocity is over
-		if(Math.abs(currentVelocity.y) > maxVelocity.y) {
+		if(Math.abs(currentVelocity.getY()) > maxVelocity.getY()) {
 			//Sets vertical velocity as the limit
-			currentVelocity.y = (int) (Math.signum(currentVelocity.y) * maxVelocity.y);
+			currentVelocity.setY((int) (Math.signum(currentVelocity.getX()) * maxVelocity.getY()));
 		}
-		if (Math.abs(currentVelocity.x) > maxVelocity.x) {
+		if (Math.abs(currentVelocity.getX()) > maxVelocity.getX()) {
 			//Sets horizontal velocity as the limit
-			currentVelocity.x = (int) (Math.signum(currentVelocity.x) * maxVelocity.x);
+			currentVelocity.setX((int) (Math.signum(currentVelocity.getX()) * maxVelocity.getX()));
 		}
 	}
 	void updatePosition() {
@@ -106,37 +106,37 @@ public abstract class Interactable {
 		}
 
         //Moves the player based on the players velocity
-		currentPos.x += currentVelocity.x * Data.deltaTime;
-		currentPos.y += currentVelocity.y * Data.deltaTime;
+		currentPos.x += currentVelocity.getX() * Data.deltaTime;
+		currentPos.y += currentVelocity.getY() * Data.deltaTime;
 		
 
         //Keeps the character from moving out the boundary
-		if(destRec.OUT_TOP + currentVelocity.y * Data.deltaTime < Data.roomBoundary.OUT_TOP && !isTeleporting) {
+		if(destRec.OUT_TOP + currentVelocity.getY() * Data.deltaTime < Data.roomBoundary.OUT_TOP && !isTeleporting) {
 			//The character is stopped right below the top boundary
 			currentPos.y = Data.roomBoundary.y;
-			currentVelocity.y *= -0.5f;
+			currentVelocity.setY(currentVelocity.getY() * -0.5f);
 		}
       
-		if(destRec.OUT_BOTTOM + currentVelocity.x * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
+		if(destRec.OUT_BOTTOM + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
 			//The character is stopped right below the left boundary
 			currentPos.y = Data.roomBoundary.OUT_BOTTOM - destRec.height;
-			currentVelocity.x *= -0.5f;
+			currentVelocity.setX(currentVelocity.getX() * -0.5f);
 		}
 		
-        if (destRec.OUT_LEFT + currentVelocity.x * Data.deltaTime < Data.roomBoundary.OUT_LEFT && !isTeleporting)
+        if (destRec.OUT_LEFT + currentVelocity.getX() * Data.deltaTime < Data.roomBoundary.OUT_LEFT && !isTeleporting)
         {
             //The character is stopped right below the left boundary
             currentPos.x = Data.roomBoundary.OUT_LEFT;
-            currentVelocity.x *= -0.5f;
+            currentVelocity.setX(currentVelocity.getX() * -0.5f);
 
             //The character is touching the left wall
             touchingWall[3] = true;
         }
-        if (destRec.OUT_RIGHT + currentVelocity.x * Data.deltaTime > Data.roomBoundary.OUT_RIGHT && !isTeleporting)
+        if (destRec.OUT_RIGHT + currentVelocity.getX() * Data.deltaTime > Data.roomBoundary.OUT_RIGHT && !isTeleporting)
         {
             //The character is stopped right below the right boundary
             currentPos.x = Data.roomBoundary.OUT_RIGHT - destRec.OUT_RIGHT;
-            currentVelocity.x *= -0.5f;
+            currentVelocity.setX(currentVelocity.getX() * -0.5f);
 
             //The character is touching the right wall
             touchingWall[1] = true;

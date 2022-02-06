@@ -1,7 +1,7 @@
 import java.awt.List;
 
 
-public class Character extends Interactable {
+public abstract class Character extends Interactable {
 	//attributes
 	int health;
 	int attackDamage;
@@ -64,8 +64,8 @@ public class Character extends Interactable {
         this.currentRoom = currentRoom;
 
         //Sets the movement data of the character
-        this.currentVelocity.x = 0;
-        this.currentVelocity.y = 0;
+        this.currentVelocity.setX(0);
+        this.currentVelocity.setY(0);
         accel.x= 0;
         accel.y= 0;
         maxAccel = new Vector2(100,100);
