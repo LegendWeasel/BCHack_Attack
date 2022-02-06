@@ -176,7 +176,7 @@ public class FloorMap {
         for (int i = 0; i < grid.size(); i++)
         {
             //Loops through all the doors in the room
-            for(int j = 0; j < room.get(i).GetDoors().size; j++)
+            for(int j = 0; j < room.get(i).GetDoors().size(); j++)
             {
                 if(room.get(i).GetDoors().get(j).GetAdjRoom().GetShouldLock())
                 {
