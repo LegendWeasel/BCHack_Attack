@@ -1,16 +1,12 @@
-<<<<<<< HEAD
 import com.engine.core.gfx.*;
 import java.awt.Point;
 import java.awt.Rectangle;
-=======
-import java.awt.Point;
 
-import com.engine.core.gfx.SpriteSheet;
->>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
-
-public class Player extends Character{
+public class Player extends RangeCharacter{
     //Tracks which direction the projectile will be traveling
     private float projAngle = 0;
+
+    private float firingTimer = 0;
 
     //Tracks if the player can move to the next floor
     private boolean canDecend = false;
@@ -87,7 +83,8 @@ public class Player extends Character{
     /// </summary>
     public void Attack(float projAngle)
     {
-        currentRoom.AddProj(new Projectile(this, GenProjVel(projAngle), null));
+        if(firingTimer == 0) 
+            currentRoom.AddProj(new Projectile(this, GenProjVel(projAngle), null));
     }
 
     public void updateFireingTimer() {
@@ -223,11 +220,7 @@ public class Player extends Character{
         //Sets the player resources
         coinAmount = 0;
         keyAmount = 0;
-<<<<<<< HEAD
         //inventory.Empty();
-=======
-//        inventory.Empty();
->>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
 
         //Sets player player state
         inAir = false;
@@ -245,13 +238,8 @@ public class Player extends Character{
 
         //Sets the characters positional stats
         maxVelocity = new Vector2(250, 250);
-<<<<<<< HEAD
         currentPos = new Point((int)Data.roomBoundary.getCenterX(), (int)Data.roomBoundary.getCenterY());
-        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
-=======
-        currentPos = new Vector2(Data.roomBoundary.Center.X, Data.roomBoundary.Center.Y);
-        hitBox = new Rectangle((int)currentPos.X, (int)currentPos.Y, sprite.Width << 1, sprite.Height << 1);
->>>>>>> ec5ea2266cf0c7cefdf2858bbb835c34c255bf3d
+        hitBox = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);
 
         //Sets starting motion values to zero
         StopMotion();

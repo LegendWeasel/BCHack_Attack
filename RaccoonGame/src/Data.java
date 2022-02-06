@@ -49,10 +49,10 @@ public class Data {
     //Sets the difficulty selection screen
     public static int DIFFSCREEN = 4;
 
-    //Sets the sub screen ID
-    public static int EASY = 0;
-    public static int MEDIUM = 1;
-    public static int HARD = 2;
+    // //Sets the sub screen ID
+    // public static int EASY = 0;
+    // public static int MEDIUM = 1;
+    // public static int HARD = 2;
 
     //Tracks the amount of subscreens for the difficulty selection
     public static int SUBSCREENNUMDIFF = 3;
@@ -79,8 +79,8 @@ public class Data {
     public static float degToRad = (float)(Math.PI / 180);
     public static int toPercent = 100;
 
-    //Track the diffuculty multiplier
-    public static float difficultyMulti = 1f;
+    //Track the current zone
+    public static int curZone = 1;
 
     //Tracks the size of a room tile
     public static int tileSize = 40;
@@ -121,17 +121,15 @@ public class Data {
     public static int BOSS = 1;
 
     //Stores the enemy types as ints
-    public static int DOTFLY = 0;
-    public static int DUNGDROP = 1;
-    public static int TUMORMAN = 2;
-    public static int BUTTBLOB = 3;
+    public static int MOLE = 0;
+    public static int BEE = 1;
 
     //Stores the amount of enemy types
-    public static int enemyTypeAmount = 4;
+    public static int enemyTypeAmount = 2;
 
     //Stores the boss types as ints
-    public static int LORDFLY = 0;
-    public static int LORDDUNG = 1;
+    public static int DOG = 0;
+    public static int CHEF = 1;
 
     //Stores the amount of boss types
     public static int bossTypeAmount = 2;

@@ -2,6 +2,8 @@ import com.engine.core.gfx.SpriteSheet;
 
 public class Mole extends Character {
 
+    double distToPlayer;
+
 	public Mole(Room currentRoom, SpriteSheet sprite) {
 		super(currentRoom, sprite);
 		hitBox.width = sprite.GetFrameWidth() << 1;
@@ -10,11 +12,11 @@ public class Mole extends Character {
 	}
 	
 	/// Sets the mole to accelerate directly towards the player
-    public void CalcMoveDir()
+    public void CalcMoveDir(Player player)
     {
         //Sets the acceleration towards the player
-        accel.x = super.getHitBox().getCenterX() - hitBox.getCenterX();
-        accel.y = super.getHitBox().getCenterY() - hitBox.getCenterY();
+        accel.x = player.getHitBox().getCenterX() - hitBox.getCenterX();
+        accel.y = player.getHitBox().getCenterY() - hitBox.getCenterY();
 
         //Changes the acceleration values to a direction vector
         if(accel.x != 0 && accel.y != 0)
@@ -37,7 +39,7 @@ public class Mole extends Character {
     public void SetBaseStats()
     {
         //Sets the character health stats
-        maxHP = (int)(2f * Data.difficultyMulti);
+        maxHP = 2;
         currentHP = maxHP;
         baseHP = maxHP;
 

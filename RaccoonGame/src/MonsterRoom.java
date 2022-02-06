@@ -77,8 +77,8 @@ class MonsterRoom extends Room {
                 }
             case TYPEC:
                 {
-                    //Sets the mosnter stype as fly
-                    monsterType = Data.DUNGDROP;
+                    //Sets the monster type as mole
+                    monsterType = Data.MOLE;
 
                     //Tracks how many enemies to spawn
                     int spawnAmount = 5;

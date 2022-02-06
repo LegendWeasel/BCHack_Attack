@@ -7,7 +7,6 @@ import java.util.Stack;
 import com.engine.core.gfx.SpriteSheet;
 
 import java.awt.Rectangle;
-import java.lang.reflect.Array;
 
 public class FloorMap {
     //Tracks the outline grid of the map
