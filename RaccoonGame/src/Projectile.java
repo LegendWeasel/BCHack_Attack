@@ -1,5 +1,8 @@
 import java.awt.Rectangle;
 import com.engine.core.gfx.*;
+
+import java.awt.Point;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class Projectile extends Interactable{
     //Tracks the target of the projectile
     private Character target;
     
-    public Projectile(Character owner, Vector2 velocity, SpriteSheet sprite)
+    public Projectile(RangeCharacter owner, Vector2 velocity, SpriteSheet sprite)
     {
         super(owner.getCurrentRoom(), sprite);
         //Sets the velocity as the given value
@@ -107,7 +110,7 @@ public class Projectile extends Interactable{
         }
 
         //Calls UpdatePosition
-        UpdatePosition();
+        updatePosition();
     }
 
     /// <summary>
@@ -161,22 +164,24 @@ public class Projectile extends Interactable{
         if(target != null)
         {
             //Sets the acceleration towards the target
-            accel.x = target.getDestRec().Center.X - destRec.Center.X;
-            accel.y = target.getDestRec().Center.Y - destRec.Center.Y;
+            accel.x = target.getHitBox().getCenterX() - hitBox.getCenterX();
+            accel.y = target.getHitBox().getCenterY() - hitBox.getCenterY();
 
             //Changes the accceleration values to a direction vector
-            if (accel.X != 0 && accel.Y != 0)
+            if (accel.x != 0 && accel.y != 0)
             {
                 //Normalizes the vector
                 accel.normalize();
 
                 //Scales the direction by the acceleration value
-                accel *= maxAccel;
+                accel.x *= maxAccel.x;
+                accel.y *= maxAccel.y;
             }
             else
             {
                 //There is no acceleration
-                accel *= 0;
+                accel.x = 0;
+                accel.y = 0;
             }
         }
     }
@@ -191,19 +196,20 @@ public class Projectile extends Interactable{
         int distToTargetSqred = 1000000;
 
         //Loops for all enemies types
-        for (int i = 0; i < enemy.Length; i++)
+        for (int i = 0; i < enemy.length; i++)
         {
             //Loops for all spesific enemy
-            for (int j = 0; j < enemy[i].Count; j++)
+            for (int j = 0; j < enemy[i].size(); j++)
             {
                 //Compares the old closest distance to the distance to a new character
-                if (Data.GetDistSqred(enemy[i][j].GetDestRec().Center, destRec.Center) < distToTargetSqred)
+                Point center = new Point((int)enemy[i].get(j).getHitBox().getCenterX(), (int)enemy[i].get(j).getHitBox().getCenterY());
+                if(Data.GetDistSqred(center, new Point((int)hitBox.getCenterX(),(int)hitBox.getCenterY())) < distToTargetSqred)
                 {
                     //Sets the new distance as the current enemies distance
-                    distToTargetSqred = Data.GetDistSqred(enemy[i][j].GetDestRec().Center, destRec.Center);
+                    distToTargetSqred = Data.GetDistSqred(center, new Point((int)hitBox.getCenterX(),(int)hitBox.getCenterY()));
 
                     //Sets the target to the current enemy
-                    target = enemy[i][j];
+                    target = enemy[i].get(j);
                 }
             }
         }
@@ -216,13 +222,13 @@ public class Projectile extends Interactable{
     {
 
         //Checks if the projectile has collided with the current enemy
-        if (Data.IsCollided(enemy.GetDestRec(), this.destRec))
+        if (Data.IsCollided(enemy.getHitBox(), this.hitBox))
         {
             //Sets the projectile to be deleted
             isAlive = false;
 
             //Hits the enemy by the projectiles damage
-            enemy.Hit(stat[Data.DMG], currentVelocity, destRec.Width);
+            enemy.Hit(stat[Data.DMG], currentVelocity, hitBox.width);
             enemy.SetIsDirty(true);
         }
 
@@ -236,20 +242,20 @@ public class Projectile extends Interactable{
     public void CheckCollisions(List<Character>[] enemy)
     {
         //Loops for all enemies types
-        for (int i = 0; i < enemy.Length; i++)
+        for (int i = 0; i < enemy.length; i++)
         {
             //Loops for all spesific enemy
-            for(int j = 0; j < enemy[i].Count; j++)
+            for(int j = 0; j < enemy[i].size(); j++)
             {
                 //Checks if the projectile has collided with the current enemy
-                if (Data.IsCollided(enemy[i][j].GetDestRec(), this.destRec))
+                if (Data.IsCollided(enemy[i].get(j).getHitBox(), this.hitBox))
                 {
                     //Sets the projectile to be deleted
                     isAlive = false;
 
                     //Hits the enemy by the projectiles damage
-                    enemy[i][j].Hit(stat[Data.DMG], currentVelocity, destRec.Width);
-                    enemy[i][j].SetIsDirty(true);
+                    enemy[i].get(j).Hit(stat[Data.DMG], currentVelocity, hitBox.width);
+                    enemy[i].get(j).SetIsDirty(true);
                 }
             }
         }
@@ -264,8 +270,8 @@ public class Projectile extends Interactable{
     public void CheckCollBoundry()
     {
         //Checks if the projetile is beyond the room boundries
-        if (destRec.Top < Data.roomBoundary.Top || destRec.Right > Data.roomBoundary.Right ||
-            destRec.Bottom > Data.roomBoundary.Bottom || destRec.Left < Data.roomBoundary.Left)
+        if (hitBox.getMinY() < Data.roomBoundary.getMinY() || hitBox.getMaxX() > Data.roomBoundary.getMaxX() ||
+            hitBox.getMaxY() > Data.roomBoundary.getMaxY() || hitBox.getMinX() < Data.roomBoundary.getMinX())
         {
             isAlive = false;
         }
@@ -275,9 +281,10 @@ public class Projectile extends Interactable{
     /// Draws the projectile
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public override void Draw(SpriteBatch spriteBatch)
+    @Override
+    public void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw(spriteBatch);
+        super.Draw(spriteBatch);
     }
 
 }
