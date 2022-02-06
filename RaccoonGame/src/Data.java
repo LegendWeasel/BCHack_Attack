@@ -125,7 +125,7 @@ public class Data {
     public static int BEE = 1;
 
     //Stores the amount of enemy types
-    public static int enemyTypeAmount = 4;
+    public static int enemyTypeAmount = 2;
 
     //Stores the boss types as ints
     public static int DOG = 0;

@@ -277,6 +277,7 @@ public class Projectile extends Interactable{
         }
     }
 
+    /*
     /// <summary>
     /// Draws the projectile
     /// </summary>
@@ -286,5 +287,5 @@ public class Projectile extends Interactable{
     {
         super.Draw(spriteBatch);
     }
-
+    */
 }

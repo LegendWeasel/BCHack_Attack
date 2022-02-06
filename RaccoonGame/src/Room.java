@@ -59,7 +59,7 @@ public class Room {
         inventory = new Items.RoomInventory(this);
 
         //Creates the door list
-        door = new List<Door>();
+        door = new ArrayList<Door>();
 
         //Sets the baseground friction
         groundFriction = 10f;
@@ -71,7 +71,8 @@ public class Room {
         shouldLock = false;
 
         //Sets up all the room nodes
-        SetUpNodes();            ;
+        SetUpNodes();
+        Projectile foo = new Projectile(null, new Vector2(2,2), null);
     }
 
     /// <summary>
@@ -142,10 +143,10 @@ public class Room {
     /// Adds the connecting doors to the room
     /// </summary>
     /// <param name="player"></param>
-    /// <param name="adjRoom"></param>
+    /// <param name="adjRoom"></param>s
     /// <param name="wallSide"></param>
     /// <param name="sprite"></param>
-    public void AddDoors(Player player ,Room adjRoom,Room[] map,int wallSide, bool isLocked)
+    public void AddDoors(Player player ,Room adjRoom,Room[] map,int wallSide, boolean isLocked)
     {
         //Adds a door
         door.add(new Door(player, adjRoom, map, wallSide, isLocked));
@@ -256,7 +257,7 @@ public class Room {
         }
 
         //Sets the maximum and current spawn nodes based on difficulty
-        maxSpawnNode = (int)(10 * Data.difficultyMulti);
+        maxSpawnNode = 10;
         spawnNodeAmount = Data.getRandomNumber(0, maxSpawnNode);
     }
 

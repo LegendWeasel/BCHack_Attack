@@ -16,6 +16,6 @@ public class TreasureRoom extends Room{
         //Adds a random item
         inventory.AddItem(true, new Vector2(Data.roomBoundary.getCenterX(), Data.roomBoundary.getCenterY()));
 
-        base.Populate(player);
+        super.Populate(player);
     }
 }
