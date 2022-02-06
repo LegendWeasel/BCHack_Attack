@@ -113,7 +113,7 @@ public class Data {
     public final int SIZE = 6;
 
     //Stores the amount of projectile statistics
-    public final int statAmount = 7;
+    public final static int statAmount = 7;
 
     //Stores charcter types as ints
     public final int MONSTER = 0;

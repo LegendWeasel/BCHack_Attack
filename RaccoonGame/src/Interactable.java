@@ -3,10 +3,16 @@ import java.awt.Rectangle;
 
 import com.engine.core.gfx.SpriteSheet;
 
+import javafx.animation.Animation;
+
+import java.awt.Color;
 import java.awt.Point;
 
 public abstract class Interactable {
 	//attributes
+	//Tracks the location of the object on the map
+    protected Maps.Room currentRoom;
+	
 	private Rectangle destRec;
 	
 	private SpriteSheet sprite;
@@ -23,11 +29,57 @@ public abstract class Interactable {
 	
 	private Point accel;
 	
-	private float groundFriction;
+	protected Animation spriteAnim;
+    protected Color spriteColor = Color.white;
+
+	
+	//Tracks the friction of the character and the ground
+    protected float groundFriction;
+    protected float baseFriction;
+	
+	protected int pushForce;
 	
 	private boolean touchingWall[];
 	
 	private boolean isTeleporting;
+	
+	
+	//constructor
+	public Interactable(Maps.Room currentRoom, SpriteSheet sprite, Animation spriteAnim)
+    {
+        this.currentRoom = currentRoom;
+
+        //Sets the ground friction data
+        baseFriction = currentRoom.GetGroundFriction();
+        groundFriction = baseFriction;
+
+        //Sets the pushing speed
+        pushForce = 75;
+
+        //Sets the movement data of the entity
+        currentVelocity.x = 0; 
+        currentVelocity.y = 0;
+        maxVelocity.x = 100; 
+        maxVelocity.y=100;
+
+        //Sets the move directions based on current velocity
+        moveDir.x= (int)Math.signum(currentVelocity.x); 
+        moveDir.y= (int) Math.signum(currentVelocity.y);
+
+        //Set the array of touching wall booleans
+        touchingWall = new boolean[4];
+
+        //Sets the positional data of the entity
+        currentPos.x = 0;
+        currentPos.y = 0;
+
+        //Sets the visual data
+        this.sprite = sprite;
+        this.spriteAnim = spriteAnim;
+
+        //Sets the dest rec of the entity based on sprite size
+        destRec = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.Width << 1, sprite.Height << 1);
+    }
 	
 	
 	//methods
