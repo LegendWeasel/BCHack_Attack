@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 7407b9f6fedc2869923760051a03a1348e7d25ce
-
 import java.awt.Rectangle;
 
 import com.engine.core.gfx.SpriteSheet;
@@ -39,8 +34,8 @@ public abstract class Interactable {
 		//Changes the current velocity based on character acceleration
 		currentVelocity.x += accel.x - Math.signum(moveDir.x) * groundFriction;
 		currentVelocity.y += accel.y - Math.signum(moveDir.y) * groundFriction;
-//
-//      //Sets the move directions based on current velocity
+
+      	//Sets the move directions based on current velocity
 		moveDir.x += Math.signum(currentVelocity.x);
 		moveDir.y += Math.signum(currentVelocity.y);
 		
@@ -55,25 +50,24 @@ public abstract class Interactable {
 		}
 	}
 	void updatePosition() {
-//		
+
 		//Resets the touching wall bool
 		for (int i = 0; i < touchingWall.length; i++) {
 			touchingWall[i] = false;
 		}
-//
+
         //Moves the player based on the players velocity
 		currentPos.x += currentVelocity.x * Data.deltaTime;
 		currentPos.y += currentVelocity.y * Data.deltaTime;
 		
-//
-//        //Keeps the character from moving out the boundary
+
+        //Keeps the character from moving out the boundary
 		if(destRec.OUT_TOP + currentVelocity.y * Data.deltaTime < Data.roomBoundary.OUT_TOP && !isTeleporting) {
 			//The character is stopped right below the top boundary
 			currentPos.y = Data.roomBoundary.y;
 			currentVelocity.y *= -0.5f;
 		}
-//        
-//        }
+      
 		if(destRec.OUT_BOTTOM + currentVelocity.x * Data.deltaTime < Data.roomBoundary.OUT_BOTTOM && !isTeleporting) {
 			//The character is stopped right below the left boundary
 			currentPos.y = Data.roomBoundary.OUT_BOTTOM - destRec.height;
@@ -136,6 +130,4 @@ public abstract class Interactable {
 	public void setPos(Point pos) {
 		this.moveDir = pos;
 	}
-	
-	
 }
