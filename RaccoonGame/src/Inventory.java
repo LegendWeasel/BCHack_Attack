@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Point;
 
 import com.engine.core.gfx.SpriteSheet;
+import java.awt.Graphics2D;
 
 public class Inventory {
     //Tracks if the class has its data changed
@@ -88,7 +90,7 @@ public class Inventory {
     /// <param name="itemType">Int representing data item type</param>
     /// <param name="itemID">int represnting item ID</param>
     /// <param name="pos">Vector2 representing current position</param>
-    public void AddItem(boolean inWorld, int itemType, int itemID, Vector2 pos)
+    public void AddItem(boolean inWorld, int itemType, int itemID, Point pos)
     {
         //The inventory has been modified
         isDirty = true;
@@ -99,43 +101,9 @@ public class Inventory {
             case Data.ITEMPASSIVE:
             {
                 //Adds the item based on ID
-                switch (itemID)
-                {
-                    case Data.SPEEDUP:
-                        {
-                            //Adds the active item
-                            item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID], null));
-                            break;
-                        }
-                    case Data.DMGUP:
-                        {
-                            //Adds the active item
-                            item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID], null));
-                            break;
-                        }
-                    case Data.FIRERATEUP:
-                        {
-                            //Adds the active item
-                            item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID], null));
-                            break;
-                        }
-                    case Data.RANGEUP:
-                        {
-                            //Adds the active item
-                            item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID], null));
-                            break;
-                        }
-                    case Data.AMOUNTUP:
-                        {
-                            //Adds the active item
-                            item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID], null));
-                            break;
-                        }
-
-                }
-                break;
+                item[itemType].add(new StatUpgrade(inWorld, null, currentRoom, pos, itemID, Sprites.passiveSprite[itemID]));
             }
-        case Data.RESOURCE:
+            case Data.RESOURCE:
             {
                 //Adds the item based on ID
                 switch (itemID)
@@ -146,10 +114,10 @@ public class Inventory {
                             item[itemType].add(new Coin(inWorld, null, currentRoom, pos, null));
                             break;
                         }
-                    case Data.DOORKEY:
+                    case Data.KEY:
                         {
                             //Adds the resource
-                            item[itemType].add(new DoorKey(inWorld, null, currentRoom, pos, null));
+                            item[itemType].add(new Key(inWorld, null, currentRoom, pos, null));
                             break;
                         }
                     case Data.HEART:
@@ -161,7 +129,7 @@ public class Inventory {
                 }
                 break;
             }
-                    
+                        
         }
     }
 
@@ -170,7 +138,7 @@ public class Inventory {
     /// </summary>
     /// <param name="inWorld"></param>
     /// <param name="pos"></param>
-    public void AddItem(boolean inWorld, Vector2 pos)
+    public void AddItem(boolean inWorld, Point pos)
     {
         //Tracks the random items type
         int itemType = Data.getRandomNumber(1, Data.itemTypeAmount-1);
@@ -207,7 +175,7 @@ public class Inventory {
     /// Draws all in world items
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public void Draw(SpriteSheet sprite)
+    public void Draw(Graphics2D gfx)
     {
         //Loops through all items
         for(int i = 0; i < item.length; i++)
@@ -215,7 +183,7 @@ public class Inventory {
             for(int j = 0; j < item[i].size(); j++)
             {
                 //Draws the current item
-                item[i].get(j).Draw(sprite);
+                item[i].get(j).getSprite().Draw(gfx);
             }
         }
     }

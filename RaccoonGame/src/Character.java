@@ -39,7 +39,7 @@ public abstract class Character extends Interactable {
     protected float invulnTimer;
 
     //Tracks the character inventory
-//    protected CharacterInventory inventory;
+    protected CharacterInventory inventory;
 
     //Tracks the visual oppacity data of the character
     protected byte invulnAlpha = (byte) 150;
@@ -80,7 +80,7 @@ public abstract class Character extends Interactable {
         knockbackImumne = false;
 
         //Create an inventory for the charcter
-//        inventory = new CharacterInventory(currentRoom, this);
+        inventory = new CharacterInventory(currentRoom, this);
 
         //Sets the visual data of the character
         this.sprite = sprite;
@@ -146,15 +146,14 @@ public abstract class Character extends Interactable {
 
     
 
-    /// <summary>
-    /// Retrives the current inventory of the character
-    /// </summary>
-    /// <returns></returns>
-//    public CharacterInventory GetInventory()
-//    {
-//        return inventory;
-//    }
-
+    // <summary>
+    // Retrives the current inventory of the character
+    // </summary>
+    // <returns></returns>
+    public CharacterInventory GetInventory()
+    {
+        return inventory;
+    }
     
 
     /// <summary>
@@ -214,7 +213,7 @@ public abstract class Character extends Interactable {
         isDirty = false;
 
         //Upadates the inventory
-//        inventory.UpdateInventory(this);
+        inventory.UpdateInventory(this);
 
         //Calls Attack
         Attack();
@@ -225,7 +224,7 @@ public abstract class Character extends Interactable {
         //Calls CalcMoveDir
         CalcMoveDir();
 
-        Update();
+        super.update();
     }
 
     

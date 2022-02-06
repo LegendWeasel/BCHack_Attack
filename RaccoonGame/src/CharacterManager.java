@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.engine.core.gfx.SpriteSheet;
+import java.awt.Graphics2D;
 
 public class CharacterManager {
     //Tracks all characters
@@ -35,7 +36,7 @@ public class CharacterManager {
         monsterSprite[Data.BEE] = Sprites.monsterSprite[Data.BEE];
 
         //Sets all boss sprites
-        bossSprites = new Texture2D[2];
+        bossSprites = new SpriteSheet[2];
         bossSprites[Data.DOG] = Sprites.bossSprite[Data.DOG];
         bossSprites[Data.CHEF] = Sprites.bossSprite[Data.CHEF];
     }
@@ -87,13 +88,13 @@ public class CharacterManager {
                 case Data.MOLE:
                     {
                         //Spawns a dot fly
-                        character[Data.MONSTER].add(new Mole(player, currentRoom, currentPos, monsterSprite[Data.MOLE], null));
+                        character[Data.MONSTER].add(new Mole(currentRoom, monsterSprite[Data.MOLE]));
                         break;
                     }
                 case Data.BEE:
                     {
                         //Spawns a dung drop
-                        character[Data.MONSTER].add(new Bee(player, currentRoom, currentPos, monsterSprite[Data.BEE], null));
+                        character[Data.MONSTER].add(new Bee(currentRoom, monsterSprite[Data.BEE]));
                         break;
                     }
             }
@@ -108,18 +109,18 @@ public class CharacterManager {
         //Spawns the given boss type
         switch(bossType)
         {
-            case Data.DOG:
-                {
-                    //Adds a Lord Fly
-                    character[Data.BOSS].add(new Dog(player, currentRoom, currentPos, bossSprites[Data.DOG], null));
-                    break;
-                }
-            case Data.CHEF:
-                {
-                    //Adds a Lord Dung
-                    character[Data.BOSS].Add(new Chef(player, currentRoom, currentPos, bossSprites[Data.DOG], null));
-                    break;
-                }
+            // case Data.DOG:
+            //     {
+            //         //Adds a Lord Fly
+            //         character[Data.BOSS].add(new Dog(player, currentRoom, currentPos, bossSprites[Data.DOG], null));
+            //         break;
+            //     }
+            // case Data.CHEF:
+            //     {
+            //         //Adds a Lord Dung
+            //         character[Data.BOSS].Add(new Chef(player, currentRoom, currentPos, bossSprites[Data.DOG], null));
+            //         break;
+            //     }
         }
     }
 
@@ -127,7 +128,7 @@ public class CharacterManager {
     /// Draws all characters
     /// </summary>
     /// <param name="spritebatch">The graphics object to draw to</param>
-    public void DrawCharacter(SpriteBatch spritebatch)
+    public void DrawCharacter(Graphics2D gfx)
     {
         //Draws all enemies
         for (int i = 0; i < character.length; i++)
@@ -135,7 +136,7 @@ public class CharacterManager {
             for(int j = 0; j < character[i].size(); j++)
             {
                 //Draws the current character
-                character[i].get(j).Draw(spritebatch);
+                character[i].get(j).getSprite().Draw(gfx);
             }
         }
     }

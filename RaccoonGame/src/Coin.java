@@ -5,6 +5,7 @@ public class Coin extends Resource{
     public Coin(boolean inWorld, Character owner, Room currentRoom, Point pos, SpriteSheet sprite) 
     {
         super(inWorld, owner, currentRoom, pos, Sprites.resourceSprite[Data.COIN]);
+
         //Sets the item ID as the coin ID
         itemID = Data.COIN;
     }

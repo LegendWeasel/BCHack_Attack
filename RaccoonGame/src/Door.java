@@ -4,6 +4,7 @@ import com.engine.core.gfx.*;
 import javafx.geometry.Point2D;
 
 import java.awt.Point;
+import java.awt.Graphics2D;
 public class Door {
     //Tracks the adjacent room
     //private Room adjRoom;
@@ -51,10 +52,10 @@ public class Door {
         //Sets the sprite depending on locked state
         if(isLocked) {
             //The door is lock
-            //sprite = Sprites.lockedDoorSprite[wallSide];
+            sprite = Sprites.lockedDoorSprite[wallSide];
         } else {
             //The door is not lock
-            //sprite = Sprites.closedDoorSprite[wallSide];
+            sprite = Sprites.closedDoorSprite[wallSide];
         }
             
 
@@ -120,7 +121,7 @@ public class Door {
             this.isOpen = isOpen;
 
             //Changes the door sprite to open state
-            //sprite = Sprites.doorSprite[wallSide];
+            sprite = Sprites.doorSprite[wallSide];
 
         }
     }
@@ -134,7 +135,7 @@ public class Door {
         isLocked = true;
 
         //Sets the sprite to the locked sprite
-        //sprite = Sprites.lockedDoorSprite[wallSide];
+        sprite = Sprites.lockedDoorSprite[wallSide];
     }
 
     /// <summary>
@@ -197,9 +198,6 @@ public class Door {
 
         //Stops player movement
         player.StopMotion();
-
-        //Decreases the cooldown of an active item
-        //player.GetInventory().DecreaseCooldown(1);
 
         //Teleports the player to the next door depending on current door
         switch (wallSide)
@@ -277,5 +275,9 @@ public class Door {
                     break;
                 }
         }
+    }
+
+    public void Draw(Graphics2D gfx) {
+        sprite.Draw(gfx);
     }
 }

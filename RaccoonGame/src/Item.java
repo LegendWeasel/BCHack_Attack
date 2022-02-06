@@ -71,15 +71,6 @@ public class Item extends Interactable{
     }
 
     /// <summary>
-    /// Decreases the cooldown of active items
-    /// </summary>
-    /// <param name="reduceAmount"></param>
-    public void DecreaseCooldown(int decreaseValue)
-    {
-
-    }
-
-    /// <summary>
     /// Applies the current items effect
     /// </summary>
     /// <param name="player">A type Player</param>
@@ -101,10 +92,10 @@ public class Item extends Interactable{
         for (int i = 0; i < Data.itemTypeAmount; i++)
         {
             //Loops through all items of the current item types
-            for (int j = 0; j < currentRoom.GetRoomInventory().GetItems()[i].Count; j++)
+            for (int j = 0; j < currentRoom.getInventory().GetItems()[i].size(); j++)
             {
                 //Sets the current item
-                currentItem = currentRoom.GetRoomInventory().GetItems()[i][j];
+                currentItem = currentRoom.getInventory().GetItems()[i].get(j);
 
                 //Checks if the entity and the current character is colliding
                 if (Data.IsCollided(currentItem.getHitBox(), hitBox) &&

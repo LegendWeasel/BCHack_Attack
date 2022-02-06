@@ -5,9 +5,9 @@ import com.engine.core.gfx.SpriteSheet;
 public class Key extends Resource{
     public Key(boolean inWorld, Character owner, Room currentRoom, Point pos, SpriteSheet sprite)
     {
-        super(inWorld, owner, currentRoom, pos, Sprites.resourceSprite[Data.DOORKEY]);
+        super(inWorld, owner, currentRoom, pos, Sprites.resourceSprite[Data.KEY]);
         //Sets the item ID as the key ID
-        itemID = Data.DOORKEY;
+        itemID = Data.KEY;
     }
 
     /// <summary>

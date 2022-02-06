@@ -1,6 +1,6 @@
 import com.engine.core.gfx.SpriteSheet;
 
-public class Bee extends Character {
+public class Bee extends RangeCharacter {
 	
 	protected double distToPlayer;
 
@@ -45,8 +45,12 @@ public class Bee extends Character {
     }
     
     // Allows the bee to fire projectiles
-    public void Attack(){
-        currentRoom.AddProj(new Projectile(this, new Vector2((xDist,yDist).normalize() * 20), null));
+    public void Attack(Player player){
+
+        double xDist = player.getHitBox().getCenterX()-this.hitBox.getCenterX();
+        double yDist = player.getHitBox().getCenterY()-this.hitBox.getCenterY();
+
+        currentRoom.AddProj(new Projectile(this, new Vector2(xDist,yDist), null));
     }
 	
 }

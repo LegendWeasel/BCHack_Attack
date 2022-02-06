@@ -72,12 +72,16 @@ public abstract class Interactable {
         touchingWall = new boolean[4];
 
         //Sets the positional data of the entity
+		currentPos = new Point();
         currentPos.x = 0;
         currentPos.y = 0;
 
         //Sets the visual data
         this.sprite = sprite;
         this.spriteAnim = spriteAnim;
+
+		//Initializes accel
+		this.accel = new Vector2(0,0);
 
         //Sets the dest rec of the entity based on sprite size
         hitBox = new Rectangle((int)currentPos.x, (int)currentPos.y, sprite.GetFrameWidth() << 1, sprite.GetFrameHeight() << 1);

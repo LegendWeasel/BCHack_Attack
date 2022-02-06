@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.awt.Font;
 
 public class Data {
 
@@ -121,15 +122,15 @@ public class Data {
     public static int BOSS = 1;
 
     //Stores the enemy types as ints
-    public static int MOLE = 0;
-    public static int BEE = 1;
+    public static final int MOLE = 0;
+    public static final int BEE = 1;
 
     //Stores the amount of enemy types
     public static int enemyTypeAmount = 2;
 
     //Stores the boss types as ints
-    public static int DOG = 0;
-    public static int CHEF = 1;
+    public static final int DOG = 0;
+    public static final int CHEF = 1;
 
     //Stores the amount of boss types
     public static int bossTypeAmount = 2;
@@ -139,17 +140,17 @@ public class Data {
     public static Stack<Integer> possibleActive = new Stack<Integer>();
 
     //Stores item types as ints
-    public static int RESOURCE = 0;
-    public static int ITEMPASSIVE = 1;
-    public static int ITEMACTIVE = 2;
+    public static final int RESOURCE = 0;
+    public static final int ITEMPASSIVE = 1;
+    public static final int ITEMACTIVE = 2;
 
     //Stores the total amount of item types
     public static int itemTypeAmount = 3;
 
     //Stores resource types as int
-    public static int DOORKEY = 0;
-    public static int COIN = 1;
-    public static int HEART = 2;
+    public static final int KEY = 0;
+    public static final int COIN = 1;
+    public static final int HEART = 2;
 
     //Stores the amount of resources
     public static int rItemAmount = 3;
@@ -167,12 +168,12 @@ public class Data {
     public static int SCATTER = 1;
 
     //Stores the stat upgrades
-    public static int SPEEDUP = 2;
-    public static int DMGUP = 3;
-    public static int FIRERATEUP = 4;
-    public static int RANGEUP = 5;
-    public static int AMOUNTUP = 6;
-    public static int ACCURACYUP = 7;
+    public static final int SPEEDUP = 2;
+    public static final int DMGUP = 3;
+    public static final int FIRERATEUP = 4;
+    public static final int RANGEUP = 5;
+    public static final int AMOUNTUP = 6;
+    public static final int ACCURACYUP = 7;
 
     //Stores the amount of passive items
     public static int pItemAmount = 8;

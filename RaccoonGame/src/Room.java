@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.engine.core.gfx.*;
 import java.util.ArrayList;
+import java.awt.Graphics2D;
 
 public class Room {
     //Tracks which element the current room is in
@@ -13,7 +14,7 @@ public class Room {
     protected CharacterManager characterManager;
 
     //Tracks all items in the room
-    protected RoomInventory inventory;
+    protected Inventory inventory;
 
     //Tracks the size of a node
     protected int nodeSize;
@@ -53,10 +54,10 @@ public class Room {
         this.roomID = roomID;
 
         //Creates the player manager
-        characterManager = new Characters.CharacterManager(this);
+        characterManager = new CharacterManager(this);
 
         //Creates the inventory
-        inventory = new Items.RoomInventory(this);
+        inventory = new Inventory(this);
 
         //Creates the door list
         door = new ArrayList<Door>();
@@ -72,7 +73,6 @@ public class Room {
 
         //Sets up all the room nodes
         SetUpNodes();
-        Projectile foo = new Projectile(null, new Vector2(2,2), null);
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public class Room {
     /// Retrives the rooms inventory
     /// </summary>
     /// <returns></returns>
-    public RoomInventory GetRoomInventory()
+    public Inventory getInventory()
     {
         return inventory;
     }
@@ -212,8 +212,8 @@ public class Room {
         inventory.UpdateInventory(player);
 
         //Checks if the current room has any monsters
-        if(characterManager.GetCharacter()[Data.MONSTER].Count() == 0 &&
-           characterManager.GetCharacter()[Data.BOSS].Count() == 0)
+        if(characterManager.GetCharacter()[Data.MONSTER].size() == 0 &&
+           characterManager.GetCharacter()[Data.BOSS].size() == 0)
         {
             //The room is cleared if monsters
             //Opens all doors
@@ -292,28 +292,28 @@ public class Room {
     /// Draws the room
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public void Draw(SpriteSheet sprite)
+    public void Draw(Graphics2D gfx)
     {
-        spriteBatch.Draw(Sprites.backGround, new Rectangle(0,0, Data.screenWidth, Data.screenHeight), Color.White);
+        Sprites.backGround.Draw(gfx);
 
         //Draws all projectiles
-        for (int i = 0; i < proj.Count; i++)
+        for (int i = 0; i < proj.size(); i++)
         {
             //Draws the current projectile
-            proj[i].Draw(spriteBatch);
+            proj.get(i).getSprite().Draw(gfx);
         }
 
         //Draws all characters in the room
-        characterManager.DrawCharacter(spriteBatch);
+        characterManager.DrawCharacter(gfx);
 
         //Draws all in world items
-        inventory.Draw(spriteBatch);
+        inventory.Draw(gfx);
 
         //Draws all doors
-        for(int i = 0; i < door.Count; i++)
+        for(int i = 0; i < door.size(); i++)
         {
             //Draws the current door
-            door[i].Draw(spriteBatch);
+            door.get(i).Draw(gfx);
         }
     }
 }

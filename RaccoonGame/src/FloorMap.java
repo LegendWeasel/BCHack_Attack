@@ -3,10 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
 import com.engine.core.gfx.SpriteSheet;
-
 import java.awt.Rectangle;
+import java.awt.Graphics2D;
 
 public class FloorMap {
     //Tracks the outline grid of the map
@@ -62,7 +61,7 @@ public class FloorMap {
             }
 
             //Sets the current tile as a random tile
-            currentTile = grid.get(Data.getRandomNumber(0,grid.size()));
+            currentTile = grid.get(Data.getRandomNumber(0,grid.size()-1));
 
             //Creates a start room
             room.add(new StartRoom(data, 0));
@@ -361,9 +360,9 @@ public class FloorMap {
     /// Draws the current room
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public void Draw(SpriteSheet sprite)
+    public void Draw(Graphics2D gfx)
     {
         //Draws the current room
-        room.get(currentRoom).Draw(sprite);
+        room.get(currentRoom).Draw(gfx);
     }
 }
