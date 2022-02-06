@@ -44,7 +44,7 @@ public abstract class Interactable {
 	
 	
 	//constructor
-	public Interactable(Room currentRoom, SpriteSheet sprite, Animation spriteAnim)
+	public Interactable(Room currentRoom, SpriteSheet sprite)
     {
         this.currentRoom = currentRoom;
 
