@@ -22,42 +22,42 @@ public class Data {
 
     //Sets the types of screens as ints
     //Sets the start screen
-    public final int STARTSCREEN = 0;
+    public static int STARTSCREEN = 0;
 
     //Sets the game screen
-    public final int GAMESCREEN = 1;
+    public static int GAMESCREEN = 1;
 
     //Sets the menu screens
-    public final int MENUSCREEN = 2;
+    public static int MENUSCREEN = 2;
 
     //Sets the sub screen ID
-    public final int NEWRUN = 0;
-    public final int OPTIONS = 1;
-    public final int EXIT = 2;
+    public static int NEWRUN = 0;
+    public static int OPTIONS = 1;
+    public static int EXIT = 2;
 
     //Tracks the amount of subscreens for the menu
-    public final int SUBSCREENNUMMENU = 3;
+    public static int SUBSCREENNUMMENU = 3;
 
     //Sets the options screens
-    public final int OPTIONSCREEN = 3;
+    public static int OPTIONSCREEN = 3;
 
     //Sets the sub screen ID
-    public final int SCREENTIMER = 0;
-    public final int NOSCREENTIMER = 1;
+    public static int SCREENTIMER = 0;
+    public static int NOSCREENTIMER = 1;
 
     //Sets the difficulty selection screen
-    public final int DIFFSCREEN = 4;
+    public static int DIFFSCREEN = 4;
 
     //Sets the sub screen ID
-    public final int EASY = 0;
-    public final int MEDIUM = 1;
-    public final int HARD = 2;
+    public static int EASY = 0;
+    public static int MEDIUM = 1;
+    public static int HARD = 2;
 
     //Tracks the amount of subscreens for the difficulty selection
-    public final int SUBSCREENNUMDIFF = 3;
+    public static int SUBSCREENNUMDIFF = 3;
 
     //Sets the loading screen
-    public final int LOADINGSCREEN = 5;
+    public static int LOADINGSCREEN = 5;
 
     //Tracks the game window dimentions
     public static int screenWidth = 0;
@@ -120,13 +120,13 @@ public class Data {
     public final int BOSS = 1;
 
     //Stores the enemy types as ints
-    public final int DOTFLY = 0;
-    public final int DUNGDROP = 1;
-    public final int TUMORMAN = 2;
-    public final int BUTTBLOB = 3;
+    public static int DOTFLY = 0;
+    public static int DUNGDROP = 1;
+    public static int TUMORMAN = 2;
+    public static int BUTTBLOB = 3;
 
     //Stores the amount of enemy types
-    public final int enemyTypeAmount = 4;
+    public static int enemyTypeAmount = 4;
 
     //Stores the boss types as ints
     public final int LORDFLY = 0;

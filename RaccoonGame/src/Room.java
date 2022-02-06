@@ -43,7 +43,7 @@ public class Room {
     //Tracks if the current room should be locked
     protected boolean shouldLock;
 
-    private Data data;
+    protected Data data;
 
     public Room(Data data, int roomID)
     {
