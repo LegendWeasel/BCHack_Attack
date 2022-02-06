@@ -16,7 +16,7 @@ public class Mole extends Character {
         accel.x = super.getHitBox().getCenterX() - hitBox.getCenterX();
         accel.y = super.getHitBox().getCenterY() - hitBox.getCenterY();
 
-        //Changes the accceleration values to a direction vector
+        //Changes the acceleration values to a direction vector
         if(accel.x != 0 && accel.y != 0)
         {
             //Normalizes the vector
