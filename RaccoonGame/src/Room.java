@@ -1,6 +1,9 @@
 
 import java.awt.Rectangle;
 import java.util.List;
+
+import com.engine.core.gfx.SpriteSheet;
+
 import java.util.ArrayList;
 
 public class Room {
@@ -289,7 +292,7 @@ public class Room {
     /// Draws the room
     /// </summary>
     /// <param name="spriteBatch"></param>
-    public void Draw(SpriteGrid spriteBatch)
+    public void Draw(SpriteSheet sprite)
     {
         spriteBatch.Draw(Sprites.backGround, new Rectangle(0,0, Data.screenWidth, Data.screenHeight), Color.White);
 

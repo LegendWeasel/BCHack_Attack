@@ -3,6 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+import com.engine.core.gfx.SpriteSheet;
+
 import java.awt.Rectangle;
 
 public class FloorMap {
@@ -326,5 +329,41 @@ public class FloorMap {
         //Checks for a power of two to determine a single entry room
         tileA.CalcIsDeadEnd();
         tileB.CalcIsDeadEnd();
+    }
+
+    /// <summary>
+    /// Regenerates and shuffles the possible item spawns
+    /// </summary>
+    public void SetItemStack()
+    {
+        //Empties the item stack
+        Data.possiblePassive.clear();
+        Data.possibleActive.clear();
+
+        for(int i = 0; i < Data.pItemAmount-1;i++)
+        {
+            Data.possiblePassive.push(i);
+        }
+        for (int i = 0; i < Data.aItemAmount - 1; i++)
+        {
+            Data.possibleActive.push(i);
+        }
+
+        //Randomly suffles the item orders
+        Data.possibleActive = new Stack<Integer>();
+        Data.possibleActive.addAll(Data.Shuffle(new ArrayList<>(Data.possibleActive)));
+
+        Data.possiblePassive = new Stack<Integer>();
+        Data.possiblePassive.addAll(Data.Shuffle(new ArrayList<>(Data.possiblePassive)));
+    }
+
+    /// <summary>
+    /// Draws the current room
+    /// </summary>
+    /// <param name="spriteBatch"></param>
+    public void Draw(SpriteSheet sprite)
+    {
+        //Draws the current room
+        room.get(currentRoom).Draw(sprite);
     }
 }
