@@ -145,10 +145,10 @@ public class Room {
     /// <param name="adjRoom"></param>
     /// <param name="wallSide"></param>
     /// <param name="sprite"></param>
-    public void AddDoors(Characters.Player player ,Room adjRoom,Room[] map,int wallSide, bool isLocked)
+    public void AddDoors(Player player ,Room adjRoom,Room[] map,int wallSide, bool isLocked)
     {
         //Adds a door
-        door.Add(new Door(player, adjRoom, map, wallSide, isLocked));
+        door.add(new Door(player, adjRoom, map, wallSide, isLocked));
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ public class Room {
     public void AddProj(Projectile newProj)
     {
         //Adds the new projetile to the list
-        proj.Add(newProj);
+        proj.add(newProj);
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public class Room {
     public void LockDoor(int side)
     {
         //Locks the current door
-        door[side].LockDoor();
+        door.get(side).LockDoor();
     }
 
     //Updates the room
@@ -178,30 +178,30 @@ public class Room {
         for (int i = 0; i < proj.size(); i++)
         { 
             //Updates the projectiles
-            if(proj[i].GetIsFriendly())
+            if(proj.get(i).GetIsFriendly())
             {
                 //Updates the current freindly projectile
-                proj[i].Update(characterManager.GetCharacter());
+                proj.get(i).Update(characterManager.GetCharacter());
             }
             else
             {
                 //Update the current monster projectile
-                proj[i].Update(player);
+                proj.get(i).Update(player);
             }
 
             //Deletes the projectile if its is not alive
-            if(!proj[i].GetIsAlive())
+            if(!proj.get(i).GetIsAlive())
             {
                 //Deletes the projectile
-                proj.RemoveAt(i);
+                proj.remove(i);
             }
         }
 
         //Loops through and updates all doors
-        for (int i = 0; i < door.Count; i++)
+        for (int i = 0; i < door.size(); i++)
         {
             //Updates the current door
-            door[i].Update(isClear, map);
+            door.get(i).Update(isClear, map);
         }
 
         //Updates the charcter manager
@@ -216,10 +216,10 @@ public class Room {
         {
             //The room is cleared if monsters
             //Opens all doors
-            for(int i = 0; i < door.Count; i++)
+            for(int i = 0; i < door.size(); i++)
             {
                 //Opens the current door
-                door[i].SetIsOpen(true);
+                door.get(i).SetIsOpen(true);
 
                 //Sets the current room to be cleared of enemies
                 isClear = true;
@@ -284,7 +284,7 @@ public class Room {
     public void WipeProjectiles()
     {
         //Clears all projectiles
-        proj.Clear();
+        proj.clear();
     }
 
     /// <summary>

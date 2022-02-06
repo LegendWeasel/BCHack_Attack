@@ -7,6 +7,7 @@ import java.util.Stack;
 import com.engine.core.gfx.SpriteSheet;
 
 import java.awt.Rectangle;
+import java.lang.reflect.Array;
 
 public class FloorMap {
     //Tracks the outline grid of the map
@@ -18,7 +19,7 @@ public class FloorMap {
     Stack tileStack = new Stack();
 
     //Tracks all the rooms of a map
-    private List<Room> room = new ArrayList<Room>();
+    private List<Room> room = new ArrayList<>();
 
     //Tracks the index of the current room
     private int currentRoom = 0;
@@ -65,7 +66,7 @@ public class FloorMap {
             currentTile = grid.get(Data.getRandomNumber(0,grid.size()));
 
             //Creates a start room
-            room.add(new StartRoom(0));
+            room.add(new StartRoom(data, 0));
         }
 
     /// <summary>
@@ -92,10 +93,10 @@ public class FloorMap {
     public void Update(Player player)
     {
         //Updates the current room
-        room.get(currentRoom).Update(player, room.toArray());
+        room.get(currentRoom).Update(player, room.toArray(new Room[room.size()]));
 
         //Sets the current room as the players current room
-        currentRoom = player.GetCurrentRoom().GetRoomID();
+        currentRoom = player.getCurrentRoom().GetRoomID();
     }
     
     /// <summary>

@@ -36,6 +36,7 @@ public class Main extends AbstractGame
 		//TODO: This subprogram automatically happens only once, just before the actual game loop starts.
 		//It should never be manually called, the Engine will call it for you.
 		//Load images, sounds and set up any data
+		Sprites.backGround = new SpriteSheet(LoadImage.FromFile("images/backgrounds/BlackDot.png"));
 	}
 	
 	@Override

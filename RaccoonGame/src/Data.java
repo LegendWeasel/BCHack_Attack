@@ -92,10 +92,10 @@ public class Data {
     public static Rectangle screenRectangle;
 
     //Directions represented by ints
-    public static int UP = 0;
-    public static int RIGHT = 1;
-    public static int DOWN = 2;
-    public static int LEFT = 3;
+    public static final int UP = 0;
+    public static final int RIGHT = 1;
+    public static final int DOWN = 2;
+    public static final int LEFT = 3;
 
     //Direction angles represented by degrees
     public static float UPANGLE = 270f;
