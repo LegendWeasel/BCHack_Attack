@@ -43,7 +43,9 @@ public class Room {
     //Tracks if the current room should be locked
     protected boolean shouldLock;
 
-    public Room(int roomID)
+    private Data data;
+
+    public Room(Data data, int roomID)
     {
         //Sets the room ID
         this.roomID = roomID;
