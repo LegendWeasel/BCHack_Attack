@@ -1,4 +1,7 @@
-import java.awt.List;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.engine.core.gfx.SpriteSheet;
 
 
 public abstract class Character extends Interactable {
@@ -20,10 +23,10 @@ public abstract class Character extends Interactable {
     protected boolean[] projMods;
 
     //Tracks the buffs on each projectile
-    protected List<Float>[] projBuff;
+    protected ArrayList<Float>[] projBuff;
 
     //Tracks all the enemies of the current character
-    protected List<Character> enemy = new List<Character>();
+    protected List<Character> enemy = new ArrayList<Character>();
 
     //Tracks base character stats
     protected int maxHP;
@@ -46,7 +49,7 @@ public abstract class Character extends Interactable {
     protected float invulnTimer;
 
     //Tracks the character inventory
-    protected Items.CharacterInventory inventory;
+//    protected CharacterInventory inventory;
 
     //Tracks the visual oppacity data of the character
     protected byte invulnAlpha = (byte) 150;
@@ -56,9 +59,9 @@ public abstract class Character extends Interactable {
     protected int coinAmount;
     protected int keyAmount;
 
-    public Character(Maps.Room currentRoom, SpriteSheet sprite))
+    public Character(Room currentRoom, SpriteSheet sprite)
     {
-    	super();
+    	super(currentRoom, sprite);
     	
         //Sets the current room
         this.currentRoom = currentRoom;
@@ -74,16 +77,16 @@ public abstract class Character extends Interactable {
         setTouchingWall(new boolean[4]);
 
         //Sets the array of lists of projectile buffs
-        projBuff = new List<float>[Data.statAmount];
+        projBuff = new ArrayList[Data.statAmount];
 
         //Sets the array of projectile modifiers
-        projMods = new bool[Data.projModAmount];
+        projMods = new boolean[Data.projModAmount];
 
         //Loops through all the projectile buffs
         for (int i = 0; i < Data.statAmount; i++)
         {
             //Sets the current projBuff list
-            projBuff[i] = new List<float>();
+            projBuff[i] = new ArrayList<Float>();
         }
 
         //Sets the pushing speed
@@ -100,7 +103,7 @@ public abstract class Character extends Interactable {
         knockbackImumne = false;
 
         //Create an inventory for the charcter
-        inventory = new Items.CharacterInventory(currentRoom, this);
+//        inventory = new CharacterInventory(currentRoom, this);
 
         //Sets the visual data of the character
         this.sprite = sprite;
@@ -186,16 +189,16 @@ public abstract class Character extends Interactable {
     /// Retrives the current inventory of the character
     /// </summary>
     /// <returns></returns>
-    public Items.CharacterInventory GetInventory()
-    {
-        return inventory;
-    }
+//    public CharacterInventory GetInventory()
+//    {
+//        return inventory;
+//    }
 
     /// <summary>
     /// Retrives the projectile buffs
     /// </summary>
     /// <returns></returns>
-    public List<float>[] GetProjBuff()
+    public List<Float>[] GetProjBuff()
     {
         return projBuff;
     }
@@ -270,13 +273,13 @@ public abstract class Character extends Interactable {
     /// <summary>
     /// Updates the character
     /// </summary>
-    public override void Update()
+    public void Update()
     {
         //Sets the character as clean
         isDirty = false;
 
         //Upadates the inventory
-        inventory.UpdateInventory(this);
+//        inventory.UpdateInventory(this);
 
         //Calls Attack
         Attack();
@@ -287,7 +290,7 @@ public abstract class Character extends Interactable {
         //Calls CalcMoveDir
         CalcMoveDir();
 
-        base.Update();
+        Update();
     }
 
     /// <summary>
@@ -299,8 +302,8 @@ public abstract class Character extends Interactable {
         if(isDirty)
         {
             //Applies all of the passive and resource items effect
-            inventory.ApplyPassiveItem();
-            inventory.ApplyResource();
+//            inventory.ApplyPassiveItem();
+//            inventory.ApplyResource();
 
             //Applies all proj buffs
             for (int i = 0; i < Data.statAmount;i++)
@@ -309,10 +312,10 @@ public abstract class Character extends Interactable {
                 float totalBuff = 1;
 
                 //Loops through and combines all buffs of the current stat type
-                for (int j = 0; j < projBuff[i].Count; j++)
+                for (int j = 0; j < projBuff[i].size(); j++)
                 {
                     //Products the current buff
-                    totalBuff *= projBuff[i][j];
+                    totalBuff *= projBuff[i].get(j);
                 }
 
                 //Applies the stats of the projectile
@@ -357,7 +360,8 @@ public abstract class Character extends Interactable {
             if(!knockbackImumne)
             {
                 //Sets the velocity of the character relative to the projectile velocity as knockback
-                currentVelocity = projVelocity * 0.5f;
+                currentVelocity.y = projVelocity.y * 0.5f;
+                currentVelocity.x = projVelocity.x * 0.5f;
             }     
         }
     }
@@ -390,17 +394,17 @@ public abstract class Character extends Interactable {
             }
         }
 
-        //Changes the player alpha if invunerable
-        if(isInvuln)
-        {
-            //Setes the sprite alpha to the invuln alpha
-            spriteColor.A = invulnAlpha;
-        }
-        else
-        {
-            //Restores the sprite opacity
-            spriteColor.A = baseAlpha;
-        }
+//        //Changes the player alpha if invunerable
+//        if(isInvuln)
+//        {
+//            //Sets the sprite alpha to the invuln alpha
+//            spriteColor.A = invulnAlpha;
+//        }
+//        else
+//        {
+//            //Restores the sprite opacity
+//            spriteColor.A = baseAlpha;
+//        }
 
     }
 
@@ -422,19 +426,19 @@ public abstract class Character extends Interactable {
     public void Death()
     {
         //Tracks the item to be dropped
-        Items.Item droppedItem;
+//        Item droppedItem;
 
-        //Loops for all items and dropps them
-        for (int i = 0; i < inventory.GetItems().Length; i++)
-        {
-            //Loops for all of a item type
-            for(int j =0; j < inventory.GetItems()[i].Count; j++)
-            {
-                //Sets the current dropped item
-                droppedItem = inventory.GetItems()[i][j];
-                currentRoom.GetRoomInventory().AddItem(true, droppedItem.GetItemType(), droppedItem.GetItemID(), currentPos);
-            }
-        }
+//        //Loops for all items and dropps them
+//        for (int i = 0; i < inventory.GetItems().Length; i++)
+//        {
+//            //Loops for all of a item type
+//            for(int j =0; j < inventory.GetItems()[i].Count; j++)
+//            {
+//                //Sets the current dropped item
+//                droppedItem = inventory.GetItems()[i][j];
+//                currentRoom.GetRoomInventory().AddItem(true, droppedItem.GetItemType(), droppedItem.GetItemID(), currentPos);
+//            }
+//        }
 
         //Set alive to false
         isAlive = false;
