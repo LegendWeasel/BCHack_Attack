@@ -1,4 +1,10 @@
+import java.awt.Rectangle;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Data {
+
     //Tracks how many cardinal directions exist
     public static int numberOfDir = 4;
 
@@ -68,9 +74,6 @@ public class Data {
     //Tracks how wide and high the map is
     public static int mapNodeSize = 3;
 
-    //Creates a variable for use in a random number generator
-    public static Random rng = new Random();
-
     //Sets the conversion factor from degrees to radians
     public static float degToRad = (float)(Math.PI / 180);
     public static int toPercent = 100;
@@ -86,10 +89,6 @@ public class Data {
 
     //Tracks the rectangle of the entire screen
     public static Rectangle screenRectangle;
-
-    //Tracks the keyboard states
-    public static KeyboardState kb;
-    public static KeyboardState prevKb;
 
     //Directions represented by ints
     public final int UP = 0;
@@ -135,10 +134,6 @@ public class Data {
 
     //Stores the amount of boss types
     public final int bossTypeAmount = 2;
-
-    //Tracks the id of all possible items that can spawn
-    public static Stack<Int> possiblePassive = new Stack<Int>();
-    public static Stack<Int> possibleActive = new Stack<Int>();
 
     //Stores item types as ints
     public final int RESOURCE = 0;
@@ -192,7 +187,8 @@ public class Data {
 
     //Tracks an ingame timer
     public static float inGameTimer = 0;
-    public static bool isTimerActive = true;
+    public static boolean isTimerActive = true;
+
 
         /// <summary>
         /// Checks if the given 2 boxes collides
@@ -200,11 +196,11 @@ public class Data {
         /// <param name="box1"></param>
         /// <param name="box2"></param>
         /// <returns></returns>
-        public static bool IsCollided(Rectangle box1, Rectangle box2)
+        public static boolean IsCollided(Rectangle box1, Rectangle box2)
         {
             //Checks for impossible collisions
-            if (box1.Y + box1.Height < box2.Y || box1.Y > box2.Y + box2.Height ||
-                box1.X + box1.Width < box2.X  || box1.X > box2.X + box2.Width)
+            if (box1.y + box1.height < box2.y || box1.y > box2.y + box2.height ||
+                box1.x + box1.width < box2.x  || box1.x > box2.x + box2.width)
             {
                 //There is no collisions
                 return false;
@@ -220,12 +216,9 @@ public class Data {
         /// <returns>A direction vect</returns>
         public static Vector2 GenRandDir()
         {
-            //Create a temporary direction vector
-            Vector2 dir = new Vector2();
-
             //Randomizes the direction and normalizes it
-            dir = new Vector2(rng.Next(100) - 50, rng.Next(100) - 50);
-            dir.Normalize();
+            Vector2 dir = new Vector2(getRandomNumber(0, 100) - 50.0, getRandomNumber(0, 100) - 50.0);
+            dir.normalize();
 
             return dir;
         }
@@ -239,7 +232,7 @@ public class Data {
         public static int GetDistSqred(Point point1, Point point2)
         {
             //Returns and calculates the distance using the distance formula
-            return ((point1.X -point2.X) * (point1.X - point2.X) + (point1.Y - point2.Y) * (point1.Y - point2.Y));
+            return ((point1.x -point2.x) * (point1.x - point2.x) + (point1.y - point2.y) * (point1.y - point2.y));
         }
 
         /// <summary>
@@ -266,38 +259,48 @@ public class Data {
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Int> Shuffle(List<Int> list)
+        public static List<Integer> Shuffle(List<Integer> list)
         {
             //Tracks a copy of the list
-            List<Int> listCopy = new List<Int>();
+            List<Integer> listCopy = new ArrayList<Integer>();
 
             //Tracks the new shuffled list
-            List<Int> newList = new List<Int>();
+            List<Integer> newList = new ArrayList<Integer>();
 
             //Copies the data from the list to the copy
-            for(int i = 0; i < list.Count; i++)
+            for(int i = 0; i < list.size(); i++)
             {
                 //Copies the current element
-                listCopy.Add(list[i]);
+                listCopy.add(list.get(i));
             }
 
             //Tracks the randomized index of the list
             int index;
 
             //Repeat for all values of the list copy
-            while(listCopy.Count > 0)
+            while(listCopy.size()> 0)
             {
                 //Randomly generates a index value
-                index = rng.Next(listCopy.Count);
+                index = getRandomNumber(0, listCopy.size());
 
                 //Adds value at the generated index to the new list
-                newList.Add(listCopy[index]);
+                newList.add(listCopy.get(index));
 
                 //Removes the value at that index
-                listCopy.RemoveAt(index);
+                listCopy.remove(index);
             }
 
             //Returns the shuffled list
             return newList;
         }
+
+    //Pre: A maximum and minimum integer value
+    //Post: A integer within the given limit
+    //Description: Generates a number between the given range inclusive
+    public static int getRandomNumber(int minValue, int maxValue)
+    {
+        //Generates then returns the number
+        int number = (int)((Math.random() * (maxValue - minValue + 1)) + minValue);
+        return number;
+    }
 }
